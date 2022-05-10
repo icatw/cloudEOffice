@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.icatw.yeb.server.mapper.TOplogMapper">
+
+    <resultMap type="cn.icatw.yeb.server.domain.TOplog" id="TOplogMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="adddate" column="addDate" jdbcType="TIMESTAMP"/>
+        <result property="operate" column="operate" jdbcType="VARCHAR"/>
+        <result property="adminid" column="adminid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询指定行数据-->
+    <select id="selectTOplogList" resultMap="TOplogMap">
+        select
+        id, addDate, operate, adminid
+        from t_oplog
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="adddate != null">
+                and addDate = #{adddate}
+            </if>
+            <if test="operate != null and operate != ''">
+                and operate = #{operate}
+            </if>
+            <if test="adminid != null">
+                and adminid = #{adminid}
+            </if>
+        </where>
+    </select>
+</mapper>
