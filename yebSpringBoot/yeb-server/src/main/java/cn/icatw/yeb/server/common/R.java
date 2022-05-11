@@ -23,7 +23,7 @@ public class R {
         return new R(ResultStatusEnum.SUCCESS.getCode(), "", null);
     }
 
-    public static R ok(String msg,Object data) {
+    public static R ok(String msg, Object data) {
         return new R(ResultStatusEnum.SUCCESS.getCode(), msg, data);
     }
 
@@ -41,6 +41,10 @@ public class R {
 
     public static R fail(String msg) {
         return new R(ResultStatusEnum.SYSTEM_EXCEPTION.getCode(), msg, null);
+    }
+
+    public static R fail(ResultStatusEnum statusEnum) {
+        return new R(statusEnum.getCode(), statusEnum.getMessage(), null);
     }
 
 }

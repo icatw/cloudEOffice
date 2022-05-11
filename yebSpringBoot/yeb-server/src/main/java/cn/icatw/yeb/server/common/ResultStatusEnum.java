@@ -30,10 +30,12 @@ public enum ResultStatusEnum {
     NO_TOKEN_EXCEPTION(302, "没有token，请重新登陆"),
     TOKEN_VERIFICATION_FAILED(303, "token验证失败，请重新登录"),
     NOT_USER(304, "用户不存在，请重新登录"),
+    LOGIN_FAILED(305, "尚未登录，请登录！"),
     /**
      * 系统异常
      */
     SYSTEM_EXCEPTION(401, "系统错误"),
+    PERMISSION_NOT_EXCEPTION(403, "权限不足，请联系管理员"),
     /**
      * 其他异常
      */
