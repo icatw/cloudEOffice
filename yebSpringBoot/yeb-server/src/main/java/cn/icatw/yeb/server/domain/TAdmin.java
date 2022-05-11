@@ -1,13 +1,18 @@
 package cn.icatw.yeb.server.domain;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import io.swagger.annotations.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Collection;
 
 /**
  * (TAdmin)实体类
@@ -19,7 +24,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel("$tableInfo.comment")
-public class TAdmin implements Serializable {
+public class TAdmin implements Serializable, UserDetails {
     private static final long serialVersionUID = 852151776851562037L;
     /**
      * id
@@ -60,7 +65,7 @@ public class TAdmin implements Serializable {
      */
     @TableField(value = "enabled")
     @ApiModelProperty("是否启用")
-    private Integer enabled;
+    private Boolean enabled;
 
     /**
      * 用户名
@@ -89,5 +94,30 @@ public class TAdmin implements Serializable {
     @TableField(value = "remark")
     @ApiModelProperty("备注")
     private String remark;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 }
 
