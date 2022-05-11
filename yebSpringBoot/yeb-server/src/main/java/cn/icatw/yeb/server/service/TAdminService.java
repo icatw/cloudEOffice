@@ -21,5 +21,13 @@ public interface TAdminService extends IService<TAdmin> {
      * @return {@link R}
      */
     R login(AdminLoginParam adminLoginParam, HttpRequest request);
+
+    /**
+     * 根据用户名得到管理员信息
+     *
+     * @param username 用户名
+     * @return {@link TAdmin}
+     */
+    TAdmin getAdminByUserName(String username);
 }
 

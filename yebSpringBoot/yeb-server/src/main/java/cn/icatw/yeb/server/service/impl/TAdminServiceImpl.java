@@ -3,6 +3,7 @@ package cn.icatw.yeb.server.service.impl;
 import cn.icatw.yeb.server.common.R;
 import cn.icatw.yeb.server.domain.param.AdminLoginParam;
 import cn.icatw.yeb.server.utils.JwtTokenUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cn.icatw.yeb.server.domain.TAdmin;
 import cn.icatw.yeb.server.mapper.TAdminMapper;
@@ -57,6 +58,12 @@ public class TAdminServiceImpl extends ServiceImpl<TAdminMapper, TAdmin> impleme
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
         return R.ok("登录成功！", tokenMap);
+    }
+
+    @Override
+    public TAdmin getAdminByUserName(String username) {
+        return this.getOne(new QueryWrapper<TAdmin>().eq("username", username)
+                .eq("enabled", true));
     }
 }
 
