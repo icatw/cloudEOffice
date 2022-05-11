@@ -35,3 +35,13 @@ mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
   # 配置MyBatis数据返回类型别名（默认别名是类名）
   type-aliases-package: cn.icatw.yeb.server.pojo
+
+jwt:
+#  jwt存储的请求头
+  tokenHeader: Authorization
+#  jwt 加解密使用的密钥
+  secret: yeb-secret
+#  超时时间（60*60*24）
+  expiration: 604800
+#  jwt负载请求头
+  tokenHead: Bearer
