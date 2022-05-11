@@ -7,6 +7,7 @@ import cn.icatw.yeb.server.service.TAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,12 +28,26 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
+    @Lazy
     TAdminService adminService;
 
     @Autowired
     RestAuthenticationEntryPoint authenticationEntryPoint;
     @Autowired
     RestAccessDeniedHandler accessDeniedHandler;
+
+    private static final String[] URL_WHITELIST = {
+            "/login",
+            "/logout",
+            "/captcha",
+            "favicon.ico",
+            "/swagger-ui.html/**",
+            "/webjars/**",
+            "/v2/**",
+            "/swagger-resources/**",
+            "/doc.html",
+            "/upload"
+    };
 
     @Override
     @Bean
@@ -69,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //允许登录访问
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login", "/logout")
+                .antMatchers(URL_WHITELIST)
                 .permitAll()
                 //除了上面,所有请求都需要认证
                 .anyRequest()
