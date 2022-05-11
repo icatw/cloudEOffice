@@ -10,7 +10,6 @@ import cn.icatw.yeb.server.mapper.TAdminMapper;
 import cn.icatw.yeb.server.service.TAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 /**
@@ -38,7 +38,7 @@ public class TAdminServiceImpl extends ServiceImpl<TAdminMapper, TAdmin> impleme
     private String tokenHead;
 
     @Override
-    public R login(AdminLoginParam adminLoginParam, HttpRequest request) {
+    public R login(AdminLoginParam adminLoginParam, HttpServletRequest request) {
         String username = adminLoginParam.getUsername();
         String password = adminLoginParam.getPassword();
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);

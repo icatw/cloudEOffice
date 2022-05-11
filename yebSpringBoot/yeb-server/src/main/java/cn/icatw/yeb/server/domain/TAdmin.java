@@ -24,7 +24,7 @@ import java.util.Collection;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("$tableInfo.comment")
+@ApiModel(value="Admin对象", description="")
 public class TAdmin implements Serializable, UserDetails {
     private static final long serialVersionUID = 852151776851562037L;
     /**

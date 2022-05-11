@@ -4,7 +4,8 @@ import cn.icatw.yeb.server.common.R;
 import cn.icatw.yeb.server.domain.TAdmin;
 import cn.icatw.yeb.server.domain.param.AdminLoginParam;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.http.HttpRequest;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * (TAdmin)表服务接口
@@ -20,7 +21,7 @@ public interface TAdminService extends IService<TAdmin> {
      * @param request         请求
      * @return {@link R}
      */
-    R login(AdminLoginParam adminLoginParam, HttpRequest request);
+    R login(AdminLoginParam adminLoginParam, HttpServletRequest request);
 
     /**
      * 根据用户名得到管理员信息
