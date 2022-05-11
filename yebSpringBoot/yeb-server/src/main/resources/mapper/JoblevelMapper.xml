@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.icatw.yeb.server.mapper.JoblevelMapper">
+
+    <resultMap type="cn.icatw.yeb.server.domain.Joblevel" id="JoblevelMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="titlelevel" column="titleLevel" jdbcType="VARCHAR"/>
+        <result property="createdate" column="createDate" jdbcType="TIMESTAMP"/>
+        <result property="enabled" column="enabled" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询指定行数据-->
+    <select id="selectJoblevelList" resultMap="JoblevelMap">
+        select
+        id, name, titleLevel, createDate, enabled
+        from t_joblevel
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="titlelevel != null">
+                and titleLevel = #{titlelevel}
+            </if>
+            <if test="createdate != null">
+                and createDate = #{createdate}
+            </if>
+            <if test="enabled != null">
+                and enabled = #{enabled}
+            </if>
+        </where>
+    </select>
+</mapper>

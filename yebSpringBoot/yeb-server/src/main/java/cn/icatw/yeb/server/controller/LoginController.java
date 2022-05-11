@@ -1,9 +1,9 @@
 package cn.icatw.yeb.server.controller;
 
 import cn.icatw.yeb.server.common.R;
-import cn.icatw.yeb.server.domain.TAdmin;
+import cn.icatw.yeb.server.domain.Admin;
 import cn.icatw.yeb.server.domain.param.AdminLoginParam;
-import cn.icatw.yeb.server.service.TAdminService;
+import cn.icatw.yeb.server.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import java.security.Principal;
 @RestController
 public class LoginController {
     @Autowired
-    TAdminService adminService;
+    AdminService adminService;
 
     @ApiOperation(value = "登录之后返回token")
     @PostMapping("/login")
@@ -35,7 +35,7 @@ public class LoginController {
 
     @ApiOperation(value = "获取当前登陆用户的信息")
     @GetMapping("/admin/info")
-    public TAdmin getAdminInfo(Principal principal) {
+    public Admin getAdminInfo(Principal principal) {
         if (principal == null) {
             return null;
         }

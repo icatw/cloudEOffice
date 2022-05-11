@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.icatw.yeb.server.mapper.SalaryMapper">
+
+    <resultMap type="cn.icatw.yeb.server.domain.Salary" id="SalaryMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="basicsalary" column="basicSalary" jdbcType="INTEGER"/>
+        <result property="bonus" column="bonus" jdbcType="INTEGER"/>
+        <result property="lunchsalary" column="lunchSalary" jdbcType="INTEGER"/>
+        <result property="trafficsalary" column="trafficSalary" jdbcType="INTEGER"/>
+        <result property="allsalary" column="allSalary" jdbcType="INTEGER"/>
+        <result property="pensionbase" column="pensionBase" jdbcType="INTEGER"/>
+        <result property="pensionper" column="pensionPer" jdbcType="NUMERIC"/>
+        <result property="createdate" column="createDate" jdbcType="TIMESTAMP"/>
+        <result property="medicalbase" column="medicalBase" jdbcType="INTEGER"/>
+        <result property="medicalper" column="medicalPer" jdbcType="NUMERIC"/>
+        <result property="accumulationfundbase" column="accumulationFundBase" jdbcType="INTEGER"/>
+        <result property="accumulationfundper" column="accumulationFundPer" jdbcType="NUMERIC"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询指定行数据-->
+    <select id="selectSalaryList" resultMap="SalaryMap">
+        select
+        id, basicSalary, bonus, lunchSalary, trafficSalary, allSalary, pensionBase, pensionPer, createDate, medicalBase,
+        medicalPer, accumulationFundBase, accumulationFundPer, name
+        from t_salary
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="basicsalary != null">
+                and basicSalary = #{basicsalary}
+            </if>
+            <if test="bonus != null">
+                and bonus = #{bonus}
+            </if>
+            <if test="lunchsalary != null">
+                and lunchSalary = #{lunchsalary}
+            </if>
+            <if test="trafficsalary != null">
+                and trafficSalary = #{trafficsalary}
+            </if>
+            <if test="allsalary != null">
+                and allSalary = #{allsalary}
+            </if>
+            <if test="pensionbase != null">
+                and pensionBase = #{pensionbase}
+            </if>
+            <if test="pensionper != null">
+                and pensionPer = #{pensionper}
+            </if>
+            <if test="createdate != null">
+                and createDate = #{createdate}
+            </if>
+            <if test="medicalbase != null">
+                and medicalBase = #{medicalbase}
+            </if>
+            <if test="medicalper != null">
+                and medicalPer = #{medicalper}
+            </if>
+            <if test="accumulationfundbase != null">
+                and accumulationFundBase = #{accumulationfundbase}
+            </if>
+            <if test="accumulationfundper != null">
+                and accumulationFundPer = #{accumulationfundper}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+        </where>
+    </select>
+</mapper>

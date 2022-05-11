@@ -3,7 +3,7 @@ package cn.icatw.yeb.server.config;
 import cn.icatw.yeb.server.security.JwtAuthenticationTokenFilter;
 import cn.icatw.yeb.server.security.RestAccessDeniedHandler;
 import cn.icatw.yeb.server.security.RestAuthenticationEntryPoint;
-import cn.icatw.yeb.server.service.TAdminService;
+import cn.icatw.yeb.server.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +29,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     @Lazy
-    TAdminService adminService;
+    AdminService adminService;
 
     @Autowired
     RestAuthenticationEntryPoint authenticationEntryPoint;

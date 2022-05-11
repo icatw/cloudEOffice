@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.icatw.yeb.server.mapper.AppraiseMapper">
+
+    <resultMap type="cn.icatw.yeb.server.domain.Appraise" id="AppraiseMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="eid" column="eid" jdbcType="INTEGER"/>
+        <result property="appdate" column="appDate" jdbcType="TIMESTAMP"/>
+        <result property="appresult" column="appResult" jdbcType="VARCHAR"/>
+        <result property="appcontent" column="appContent" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询指定行数据-->
+    <select id="selectAppraiseList" resultMap="AppraiseMap">
+        select
+        id, eid, appDate, appResult, appContent, remark
+        from t_appraise
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="eid != null">
+                and eid = #{eid}
+            </if>
+            <if test="appdate != null">
+                and appDate = #{appdate}
+            </if>
+            <if test="appresult != null and appresult != ''">
+                and appResult = #{appresult}
+            </if>
+            <if test="appcontent != null and appcontent != ''">
+                and appContent = #{appcontent}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </where>
+    </select>
+</mapper>
