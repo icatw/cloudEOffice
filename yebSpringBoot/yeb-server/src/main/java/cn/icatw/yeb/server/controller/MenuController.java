@@ -1,12 +1,11 @@
 package cn.icatw.yeb.server.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import cn.icatw.yeb.server.common.R;
 import cn.icatw.yeb.server.domain.Menu;
 import cn.icatw.yeb.server.service.MenuService;
-import cn.icatw.yeb.server.common.R;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,7 +20,7 @@ import java.util.List;
  */
 @Api(tags = "(Menu)")
 @RestController
-@RequestMapping("menu")
+@RequestMapping("/system/cfg")
 public class MenuController {
 
     /**
@@ -29,6 +28,12 @@ public class MenuController {
      */
     @Resource
     private MenuService menuService;
+
+    @ApiOperation(value = "通过用户id查询菜单列表")
+    @GetMapping("/menu")
+    public List<Menu> getMenusByAdminId() {
+        return menuService.getMenusByAdminId();
+    }
 
     /**
      * 分页查询所有数据

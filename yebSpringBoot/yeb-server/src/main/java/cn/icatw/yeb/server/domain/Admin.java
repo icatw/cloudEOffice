@@ -3,6 +3,7 @@ package cn.icatw.yeb.server.domain;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,6 +26,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel("Admin")
+@TableName("")
 public class Admin implements Serializable , UserDetails {
     private static final long serialVersionUID = -20362868945856008L;
     /**

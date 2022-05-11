@@ -1,13 +1,16 @@
 package cn.icatw.yeb.server.domain;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import io.swagger.annotations.*;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
 /**
  * (Menu)实体类
@@ -89,5 +92,12 @@ public class Menu implements Serializable {
     @TableField(value = "enabled")
     @ApiModelProperty("是否启用")
     private Boolean enabled;
+
+    /**
+     * 子菜单
+     */
+    @TableField(exist = false)
+    @ApiModelProperty("子菜单")
+    private List<Menu> children;
 }
 
