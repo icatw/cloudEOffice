@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cn.icatw.yeb.server.domain.TAdmin;
 import cn.icatw.yeb.server.mapper.TAdminMapper;
 import cn.icatw.yeb.server.service.TAdminService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 /**
@@ -41,6 +43,15 @@ public class TAdminServiceImpl extends ServiceImpl<TAdminMapper, TAdmin> impleme
     public R login(AdminLoginParam adminLoginParam, HttpServletRequest request) {
         String username = adminLoginParam.getUsername();
         String password = adminLoginParam.getPassword();
+        String code = adminLoginParam.getCode();
+        HttpSession session = request.getSession();
+        //session中的验证码
+        String captcha = (String) session.getAttribute("captcha");
+        //清除验证码session
+        session.removeAttribute("captcha");
+        if (!captcha.equalsIgnoreCase(code)|| StringUtils.isEmpty(code)) {
+            return R.fail("验证码错误，请重新输入！");
+        }
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (userDetails == null || !passwordEncoder.matches(password, userDetails.getPassword())) {
             return R.fail("用户名或密码不正确");
@@ -48,6 +59,7 @@ public class TAdminServiceImpl extends ServiceImpl<TAdminMapper, TAdmin> impleme
         if (!userDetails.isEnabled()) {
             return R.fail("账号被禁用，请联系管理员");
         }
+
         //更新security登录用户对象
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
