@@ -1,20 +1,23 @@
 package cn.icatw.yeb.server.config;
 
-import cn.icatw.yeb.server.security.JwtAuthenticationTokenFilter;
-import cn.icatw.yeb.server.security.RestAccessDeniedHandler;
-import cn.icatw.yeb.server.security.RestAuthenticationEntryPoint;
+import cn.icatw.yeb.server.domain.Admin;
+import cn.icatw.yeb.server.security.*;
 import cn.icatw.yeb.server.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -35,7 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     RestAuthenticationEntryPoint authenticationEntryPoint;
     @Autowired
     RestAccessDeniedHandler accessDeniedHandler;
-
+    @Autowired
+    CustomUrlDecisionManager customUrlDecisionManager;
+    @Autowired
+    CustomFilter customFilter;
     private static final String[] URL_WHITELIST = {
             "/login",
             "/logout",
@@ -53,7 +59,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
-            return adminService.getAdminByUserName(username);
+            Admin admin = adminService.getAdminByUserName(username);
+
+            if (admin != null) {
+                admin.setRoles(adminService.getRoles(admin.getId()));
+                return admin;
+            }
+            throw new UsernameNotFoundException("用户名或密码不正确！");
         };
     }
 
@@ -72,6 +84,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        //忽略白名单，放行以下路径
+        web.ignoring().antMatchers(URL_WHITELIST);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -84,11 +101,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //允许登录访问
                 .and()
                 .authorizeRequests()
-                .antMatchers(URL_WHITELIST)
-                .permitAll()
+                //.antMatchers(URL_WHITELIST)
+                //.permitAll()
                 //除了上面,所有请求都需要认证
                 .anyRequest()
                 .authenticated()
+                //动态权限配置
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O object) {
+                        object.setAccessDecisionManager(customUrlDecisionManager);
+                        object.setSecurityMetadataSource(customFilter);
+                        return object;
+                    }
+                })
                 //禁用缓存
                 .and()
                 .headers()

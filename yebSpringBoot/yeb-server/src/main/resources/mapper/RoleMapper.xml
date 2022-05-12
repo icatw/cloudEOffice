@@ -25,4 +25,12 @@
             </if>
         </where>
     </select>
+    <select id="getRoles" resultType="cn.icatw.yeb.server.domain.Role">
+        select r.id,
+               r.name,
+               r.nameZh
+        from t_role as r
+                 left join t_admin_role as ar on r.id = ar.rid
+        where ar.adminId = #{adminId};
+    </select>
 </mapper>

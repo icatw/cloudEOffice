@@ -2,10 +2,12 @@ package cn.icatw.yeb.server.service;
 
 import cn.icatw.yeb.server.common.R;
 import cn.icatw.yeb.server.domain.Admin;
+import cn.icatw.yeb.server.domain.Role;
 import cn.icatw.yeb.server.domain.param.AdminLoginParam;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * (Admin)表服务接口
@@ -30,5 +32,13 @@ public interface AdminService extends IService<Admin> {
      * @return {@link Admin}
      */
     Admin getAdminByUserName(String username);
+
+    /**
+     * 根据用户id查询角色
+     *
+     * @param adminId 管理员id
+     * @return {@link List}<{@link Role}>
+     */
+    List<Role> getRoles(Integer adminId);
 }
 

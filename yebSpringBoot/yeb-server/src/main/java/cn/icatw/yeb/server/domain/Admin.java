@@ -11,10 +11,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * (Admin)实体类
@@ -27,7 +30,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @ApiModel("Admin")
 @TableName("")
-public class Admin implements Serializable , UserDetails {
+public class Admin implements Serializable, UserDetails {
     private static final long serialVersionUID = -20362868945856008L;
     /**
      * id
@@ -99,9 +102,17 @@ public class Admin implements Serializable , UserDetails {
     @ApiModelProperty("备注")
     private String remark;
 
+    /**
+     * 角色
+     */
+    @TableField(exist = false)
+    @ApiModelProperty("角色")
+    private List<Role> roles;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
     @Override

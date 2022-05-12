@@ -1,7 +1,9 @@
 package cn.icatw.yeb.server.service.impl;
 
 import cn.icatw.yeb.server.common.R;
+import cn.icatw.yeb.server.domain.Role;
 import cn.icatw.yeb.server.domain.param.AdminLoginParam;
+import cn.icatw.yeb.server.mapper.RoleMapper;
 import cn.icatw.yeb.server.utils.JwtTokenUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * (Admin)表服务实现类
@@ -38,6 +41,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     JwtTokenUtil jwtTokenUtil;
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+    @Autowired
+    RoleMapper roleMapper;
 
     @Override
     public R login(AdminLoginParam adminLoginParam, HttpServletRequest request) {
@@ -76,6 +81,12 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     public Admin getAdminByUserName(String username) {
         return this.getOne(new QueryWrapper<Admin>().eq("username", username)
                 .eq("enabled", true));
+    }
+
+    @Override
+    public List<Role> getRoles(Integer adminId) {
+
+        return roleMapper.getRoles(adminId);
     }
 }
 

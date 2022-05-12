@@ -40,7 +40,9 @@ public class LoginController {
             return null;
         }
         String username = principal.getName();
-        return adminService.getAdminByUserName(username);
+        Admin admin = adminService.getAdminByUserName(username);
+        admin.setRoles(adminService.getRoles(admin.getId()));
+        return admin;
     }
 
     @ApiOperation(value = "退出登录")

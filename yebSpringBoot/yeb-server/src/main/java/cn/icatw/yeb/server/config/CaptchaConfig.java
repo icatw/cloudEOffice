@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
 /**
+ * 验证码配置
+ *
  * @author icatw
  * @date 2022/5/11
  * @email 762188827@qq.com
