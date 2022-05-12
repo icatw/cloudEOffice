@@ -104,7 +104,8 @@
         FROM t_menu m,
              t_menu_role mr,
              t_role r
-        WHERE m.id = mr.id
+        WHERE m.id = mr.mid
+          and r.id = mr.rid
         ORDER BY m.id
     </select>
 </mapper>
