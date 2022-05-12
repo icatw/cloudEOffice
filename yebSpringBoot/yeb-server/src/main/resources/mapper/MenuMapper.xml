@@ -28,6 +28,13 @@
             <result column="enabled2" property="enabled"/>
         </collection>
     </resultMap>
+    <resultMap id="MenusWithRole" type="cn.icatw.yeb.server.domain.Menu" extends="MenuMap">
+        <collection property="roles" ofType="cn.icatw.yeb.server.domain.Role">
+            <id column="rid" property="id"/>
+            <result column="rname" property="name"/>
+            <result column="rnameZh" property="namezh"/>
+        </collection>
+    </resultMap>
     <!--查询指定行数据-->
     <select id="selectMenuList" resultMap="MenuMap">
         select
@@ -88,5 +95,16 @@
           AND ar.adminId = #{id}
           AND m2.enabled = TRUE
         ORDER BY m2.id
+    </select>
+    <select id="getMenusWithRole" resultMap="MenusWithRole">
+        SELECT m.*,
+               r.id     AS rid,
+               r.`name` AS rname,
+               r.nameZh AS rnameZh
+        FROM t_menu m,
+             t_menu_role mr,
+             t_role r
+        WHERE m.id = mr.id
+        ORDER BY m.id
     </select>
 </mapper>
