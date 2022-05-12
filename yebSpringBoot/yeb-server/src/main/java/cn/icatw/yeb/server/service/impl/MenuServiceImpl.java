@@ -44,5 +44,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     public List<Menu> getMenusWithRole() {
         return this.baseMapper.getMenusWithRole();
     }
+
+    @Override
+    public List<Menu> getAllMenus() {
+        return this.baseMapper.getAllMenus();
+    }
 }
 

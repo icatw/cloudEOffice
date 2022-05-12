@@ -7,6 +7,13 @@
         <result property="mid" column="mid" jdbcType="INTEGER"/>
         <result property="rid" column="rid" jdbcType="INTEGER"/>
     </resultMap>
+    <!--    更新角色菜单-->
+    <insert id="insertRecord">
+        insert into t_menu_role(mid, rid) VALUES
+        <foreach collection="mids" item="mid" separator=",">
+            (#{mid},#{rid})
+        </foreach>
+    </insert>
 
     <!--查询指定行数据-->
     <select id="selectMenuRoleList" resultMap="MenuRoleMap">
