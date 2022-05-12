@@ -1,6 +1,7 @@
 package cn.icatw.yeb.server.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,13 +40,14 @@ public class Joblevel implements Serializable {
      */
     @TableField(value = "titleLevel")
     @ApiModelProperty("职称等级")
-    private Object titlelevel;
+    private String titlelevel;
 
     /**
      * 创建时间
      */
     @TableField(value = "createDate")
     @ApiModelProperty("创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     private Date createdate;
 
     /**

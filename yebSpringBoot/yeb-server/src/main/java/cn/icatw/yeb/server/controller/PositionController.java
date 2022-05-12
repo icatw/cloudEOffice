@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Api(tags = "(Position)")
 @RestController
-@RequestMapping("/system/config/pos")
+@RequestMapping("/system/basic/pos")
 public class PositionController {
 
     /**
@@ -58,7 +58,7 @@ public class PositionController {
     public R save(@RequestBody Position position) {
         position.setCreatedate(LocalDateTime.now());
         if (this.positionService.save(position)) {
-            return R.ok("添加成功", null);
+            return R.ok("添加成功", "");
         }
         return R.fail("添加失败！");
     }
@@ -70,7 +70,7 @@ public class PositionController {
     @PutMapping
     public R updateById(@RequestBody Position position) {
         if (this.positionService.updateById(position)) {
-            return R.ok("更新成功！",null);
+            return R.ok("更新成功！","");
         }
         return R.fail("更新失败！");
     }
@@ -83,7 +83,7 @@ public class PositionController {
     public R delete(@RequestParam List<Long> id) {
         //TODO 此处删除操作需要根据前端修改
         if (this.positionService.removeByIds(id)){
-            return R.ok("删除成功！",null);
+            return R.ok("删除成功！","");
         }
         return R.fail("删除失败！");
     }
