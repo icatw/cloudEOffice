@@ -49,5 +49,14 @@ public interface AdminService extends IService<Admin> {
      * @return {@link List}<{@link Admin}>
      */
     List<Admin> getAllAdmins(String keywords);
+
+    /**
+     * 更新管理角色
+     *
+     * @param adminId 管理员id
+     * @param rids    rid
+     * @return {@link R}
+     */
+    R updateAdminRole(Integer adminId, Integer[] rids);
 }
 

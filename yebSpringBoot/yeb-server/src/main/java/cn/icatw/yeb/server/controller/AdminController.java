@@ -2,9 +2,12 @@ package cn.icatw.yeb.server.controller;
 
 import cn.icatw.yeb.server.common.R;
 import cn.icatw.yeb.server.domain.Admin;
+import cn.icatw.yeb.server.domain.Role;
 import cn.icatw.yeb.server.service.AdminService;
+import cn.icatw.yeb.server.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,6 +30,9 @@ public class AdminController {
      */
     @Resource
     private AdminService adminService;
+
+    @Autowired
+    RoleService roleService;
 
     /**
      * 分页查询所有数据
@@ -78,6 +84,18 @@ public class AdminController {
             return R.ok("删除成功！", "");
         }
         return R.fail("删除失败！");
+    }
+
+    @ApiOperation(value = "获取所有角色")
+    @GetMapping("/roles")
+    public List<Role> getAllRoles() {
+        return roleService.list();
+    }
+
+    @ApiOperation(value = "更新操作员角色")
+    @PutMapping("/role")
+    public R updateAdminRole(Integer adminId, Integer[] rids) {
+        return adminService.updateAdminRole(adminId, rids);
     }
 }
 

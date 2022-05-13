@@ -7,6 +7,13 @@
         <result property="adminid" column="adminId" jdbcType="INTEGER"/>
         <result property="rid" column="rid" jdbcType="INTEGER"/>
     </resultMap>
+    <!--    添加操作员角色-->
+    <insert id="addRole">
+        insert into t_admin_role(adminId,rid) values
+        <foreach collection="rids" item="rid" separator=",">
+            (#{adminId},#{rid})
+        </foreach>
+    </insert>
 
     <!--查询指定行数据-->
     <select id="selectAdminRoleList" resultMap="AdminRoleMap">
