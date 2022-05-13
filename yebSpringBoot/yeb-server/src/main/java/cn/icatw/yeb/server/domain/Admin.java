@@ -7,9 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -71,6 +69,7 @@ public class Admin implements Serializable, UserDetails {
      */
     @TableField(value = "enabled")
     @ApiModelProperty("是否启用")
+    @Getter(AccessLevel.NONE)
     private Boolean enabled;
 
     /**
