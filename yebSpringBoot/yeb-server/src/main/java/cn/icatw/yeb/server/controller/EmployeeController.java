@@ -115,16 +115,24 @@ public class EmployeeController {
     @ApiOperation(value = "修改数据 ")
     @PutMapping
     public R updateById(@RequestBody Employee employee) {
-        return R.ok(this.employeeService.updateById(employee));
+        if (this.employeeService.updateById(employee)) {
+            return R.ok("更新成功！");
+        }
+        return R.fail("更新失败！");
+
     }
 
     /**
      * 单条/批量删除数据
      */
     @ApiOperation(value = "单条/批量删除数据 ")
-    @DeleteMapping
-    public R delete(@RequestParam List<Long> id) {
-        return R.ok(this.employeeService.removeByIds(id));
+    @DeleteMapping("/{id}")
+    public R delete(@PathVariable Integer id) {
+        if (this.employeeService.removeById(id)) {
+            return R.ok("删除成功！");
+        }
+        return R.fail("删除失败！");
+
     }
 }
 
