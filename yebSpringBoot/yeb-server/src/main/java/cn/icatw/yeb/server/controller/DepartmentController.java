@@ -61,7 +61,7 @@ public class DepartmentController {
     @ApiOperation(value = "新增数据 ")
     @PostMapping
     public R save(@RequestBody Department department) {
-        return R.ok(this.departmentService.save(department));
+        return this.departmentService.addDep(department);
     }
 
     /**
@@ -77,9 +77,9 @@ public class DepartmentController {
      * 单条/批量删除数据
      */
     @ApiOperation(value = "单条/批量删除数据 ")
-    @DeleteMapping
-    public R delete(@RequestParam List<Long> id) {
-        return R.ok(this.departmentService.removeByIds(id));
+    @DeleteMapping("/{id}")
+    public R delete(@PathVariable Integer id) {
+        return this.departmentService.deleteDep(id);
     }
 }
 
