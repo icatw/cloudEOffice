@@ -1,5 +1,7 @@
 package cn.icatw.yeb.server.domain;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import cn.afterturn.easypoi.excel.annotation.ExcelEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -36,6 +38,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "name")
     @ApiModelProperty("员工姓名")
+    @Excel(name = "员工姓名")
     private String name;
 
     /**
@@ -43,6 +46,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "gender")
     @ApiModelProperty("性别")
+    @Excel(name = "性别")
     private String gender;
 
     /**
@@ -51,6 +55,7 @@ public class Employee implements Serializable {
     @TableField(value = "birthday")
     @ApiModelProperty("出生日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    @Excel(name = "出生日期", width = 20, format = "yyyy-MM-dd")
     private LocalDate birthday;
 
     /**
@@ -58,6 +63,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "idCard")
     @ApiModelProperty("身份证号")
+    @Excel(name = "身份证号", width = 30)
     private String idcard;
 
     /**
@@ -65,6 +71,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "wedlock")
     @ApiModelProperty("婚姻状况")
+    @Excel(name = "婚姻状况")
     private Object wedlock;
 
     /**
@@ -79,6 +86,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "nativePlace")
     @ApiModelProperty("籍贯")
+    @Excel(name = "籍贯")
     private String nativeplace;
 
     /**
@@ -93,6 +101,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "email")
     @ApiModelProperty("邮箱")
+    @Excel(name = "邮箱", width = 30)
     private String email;
 
     /**
@@ -100,6 +109,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "phone")
     @ApiModelProperty("电话号码")
+    @Excel(name = "电话号码", width = 15)
     private String phone;
 
     /**
@@ -107,6 +117,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "address")
     @ApiModelProperty("联系地址")
+    @Excel(name = "联系地址", width = 40)
     private String address;
 
     /**
@@ -114,6 +125,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "departmentId")
     @ApiModelProperty("所属部门")
+    @Excel(name = "所属部门")
     private Integer departmentid;
 
     /**
@@ -135,6 +147,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "engageForm")
     @ApiModelProperty("聘用形式")
+    @Excel(name = "聘用形式")
     private String engageform;
 
     /**
@@ -142,6 +155,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "tiptopDegree")
     @ApiModelProperty("最高学历")
+    @Excel(name = "最高学历")
     private Object tiptopdegree;
 
     /**
@@ -149,6 +163,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "specialty")
     @ApiModelProperty("所属专业")
+    @Excel(name = "所属专业", width = 20)
     private String specialty;
 
     /**
@@ -156,6 +171,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "school")
     @ApiModelProperty("毕业院校")
+    @Excel(name = "毕业院校", width = 20)
     private String school;
 
     /**
@@ -164,6 +180,7 @@ public class Employee implements Serializable {
     @TableField(value = "beginDate")
     @ApiModelProperty("入职日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    @Excel(name = "入职日期", width = 20, format = "yyyy-MM-dd")
     private LocalDate begindate;
 
     /**
@@ -171,6 +188,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "workState")
     @ApiModelProperty("在职状态")
+    @Excel(name = "在职状态")
     private String workstate;
 
     /**
@@ -178,6 +196,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "workID")
     @ApiModelProperty("工号")
+    @Excel(name = "工号")
     private String workid;
 
     /**
@@ -185,6 +204,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "contractTerm")
     @ApiModelProperty("合同期限")
+    @Excel(name = "合同期限", suffix = "年")
     private Object contractterm;
 
     /**
@@ -193,6 +213,7 @@ public class Employee implements Serializable {
     @TableField(value = "conversionTime")
     @ApiModelProperty("转正日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    @Excel(name = "转正日期", width = 20, format = "yyyy-MM-dd")
     private LocalDate conversiontime;
 
     /**
@@ -201,6 +222,7 @@ public class Employee implements Serializable {
     @TableField(value = "notWorkDate")
     @ApiModelProperty("离职日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    @Excel(name = "离职日期", width = 20, format = "yyyy-MM-dd")
     private LocalDate notworkdate;
 
     /**
@@ -209,6 +231,7 @@ public class Employee implements Serializable {
     @TableField(value = "beginContract")
     @ApiModelProperty("合同起始日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    @Excel(name = "合同起始日期", width = 20, format = "yyyy-MM-dd")
     private LocalDate begincontract;
 
     /**
@@ -217,6 +240,7 @@ public class Employee implements Serializable {
     @TableField(value = "endContract")
     @ApiModelProperty("合同终止日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    @Excel(name = "合同终止日期", width = 20, format = "yyyy-MM-dd")
     private LocalDate endcontract;
 
     /**
@@ -224,6 +248,7 @@ public class Employee implements Serializable {
      */
     @TableField(value = "workAge")
     @ApiModelProperty("工龄")
+    @Excel(name = "工龄")
     private Integer workage;
 
     /**
@@ -235,22 +260,27 @@ public class Employee implements Serializable {
 
     @ApiModelProperty(value = "民族")
     @TableField(exist = false)
+    @ExcelEntity(name = "民族")
     private Nation nation;
 
     @ApiModelProperty(value = "政治面貌")
     @TableField(exist = false)
+    @ExcelEntity(name = "政治面貌")
     private PoliticsStatus politicsStatus;
 
     @ApiModelProperty(value = "部门")
     @TableField(exist = false)
+    @ExcelEntity(name = "部门")
     private Department department;
 
     @ApiModelProperty(value = "职称")
     @TableField(exist = false)
+    @ExcelEntity(name = "职称")
     private Joblevel joblevel;
 
     @ApiModelProperty(value = "职位")
     @TableField(exist = false)
+    @ExcelEntity(name = "职位")
     private Position position;
 }
 

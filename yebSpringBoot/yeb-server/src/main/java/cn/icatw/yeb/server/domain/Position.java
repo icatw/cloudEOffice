@@ -1,5 +1,6 @@
 package cn.icatw.yeb.server.domain;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -36,13 +37,14 @@ public class Position implements Serializable {
      */
     @TableField(value = "name")
     @ApiModelProperty("职位")
+    @Excel(name = "职位", width = 15)
     private String name;
 
     /**
      * 创建时间
      */
     @TableField(value = "createDate")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @ApiModelProperty("创建时间")
     private LocalDateTime createdate;
 

@@ -1,13 +1,16 @@
 package cn.icatw.yeb.server.domain;
 
-import com.baomidou.mybatisplus.annotation.*;
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import io.swagger.annotations.*;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * (PoliticsStatus)实体类
@@ -32,6 +35,7 @@ public class PoliticsStatus implements Serializable {
      */
     @TableField(value = "name")
     @ApiModelProperty("政治面貌")
+    @Excel(name = "政治面貌", width = 15)
     private String name;
 }
 

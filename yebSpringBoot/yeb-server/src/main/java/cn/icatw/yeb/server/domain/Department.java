@@ -1,5 +1,6 @@
 package cn.icatw.yeb.server.domain;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -35,6 +36,7 @@ public class Department implements Serializable {
      */
     @TableField(value = "name")
     @ApiModelProperty("部门名称")
+    @Excel(name = "部门",width = 15)
     private String name;
 
     /**
