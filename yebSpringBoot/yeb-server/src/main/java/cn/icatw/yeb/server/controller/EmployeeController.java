@@ -1,16 +1,24 @@
 package cn.icatw.yeb.server.controller;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
 import cn.icatw.yeb.server.common.R;
 import cn.icatw.yeb.server.common.RespPageBean;
 import cn.icatw.yeb.server.domain.*;
 import cn.icatw.yeb.server.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -132,7 +140,51 @@ public class EmployeeController {
             return R.ok("删除成功！");
         }
         return R.fail("删除失败！");
-
     }
+
+    //@ApiOperation(value = "导出员工列表Excel",produces = "application/octet-stream")
+    //@GetMapping("/export")
+    //public void exportUserList(ModelMap map,
+    //                           HttpServletRequest request,
+    //                           HttpServletResponse response) {
+    //    List<Employee> memberList = employeeService.getEmployee(null);
+    //    ExportParams params = new ExportParams("员工信息列表", "员工信息列表", ExcelType.XSSF);
+    //    map.put(NormalExcelConstants.DATA_LIST, memberList);
+    //    map.put(NormalExcelConstants.CLASS, Employee.class);
+    //    map.put(NormalExcelConstants.PARAMS, params);
+    //    map.put(NormalExcelConstants.FILE_NAME, "员工信息");
+    //    PoiBaseView.render(map, request, response, NormalExcelConstants.EASYPOI_EXCEL_VIEW);
+    //}
+
+    @ApiOperation(value = "导出员工数据")
+    @GetMapping(value = "/export", produces = "application/octet-stream")
+    public void exportEmployee(HttpServletResponse response) {
+        List<Employee> list = employeeService.getEmployee(null);
+        ExportParams params = new ExportParams("员工表", "员工表", ExcelType.HSSF);
+        Workbook book = ExcelExportUtil.exportExcel(params, Employee.class, list);
+        ServletOutputStream out = null;
+        try {
+            //流形式
+            response.setHeader("content-type", "application/octet-stream");
+            //防止中文乱码
+            response.setHeader("content-disposition", "attachment;filename=" +
+                    URLEncoder.encode("员工表.xls", "UTF-8"));
+            out = response.getOutputStream();
+            book.write(out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (null != out) {
+                try {
+                    out.flush();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
 }
 

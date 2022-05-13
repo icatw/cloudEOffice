@@ -31,6 +31,7 @@ public class Employee implements Serializable {
      * 员工编号
      */
     @TableId(value = "id", type = IdType.AUTO)
+    @Excel(name = "员工编号")
     private Integer id;
 
     /**
