@@ -40,5 +40,14 @@ public interface AdminService extends IService<Admin> {
      * @return {@link List}<{@link Role}>
      */
     List<Role> getRoles(Integer adminId);
+
+    /**
+     * 模糊查询除了当前登陆的操作员之外的其他所有管理员信息（包含对应的角色信息）
+     * 当前登陆的操作员会有专门的个人信息展示，因此排除查询
+     *
+     * @param keywords 关键字
+     * @return {@link List}<{@link Admin}>
+     */
+    List<Admin> getAllAdmins(String keywords);
 }
 

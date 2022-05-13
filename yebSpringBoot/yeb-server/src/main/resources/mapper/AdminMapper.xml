@@ -14,7 +14,14 @@
         <result property="userface" column="userFace" jdbcType="VARCHAR"/>
         <result property="remark" column="remark" jdbcType="VARCHAR"/>
     </resultMap>
-
+    <resultMap id="AdminWithRole" type="cn.icatw.yeb.server.domain.Admin"
+               extends="AdminMap">
+        <collection property="roles" ofType="cn.icatw.yeb.server.domain.Role">
+            <id column="rid" property="id"/>
+            <result column="rname" property="name"/>
+            <result column="rnameZh" property="namezh"/>
+        </collection>
+    </resultMap>
     <!--查询指定行数据-->
     <select id="selectAdminList" resultMap="AdminMap">
         select
@@ -52,5 +59,32 @@
                 and remark = #{remark}
             </if>
         </where>
+    </select>
+    <!--获取所有操作员-->
+    <select id="getAllAdmins" resultMap="AdminWithRole">
+        SELECT
+        a.id,
+        a.`name`,
+        a.phone,
+        a.telephone,
+        a.address,
+        a.enabled,
+        a.username,
+        a.userface,
+        a.remark,
+        r.id AS rid,
+        r.`name` AS rname,
+        r.nameZh AS rnameZh
+        from
+        t_admin AS a
+        LEFT JOIN t_admin_role AS ar ON ar.adminId = a.id
+        LEFT JOIN t_role AS r ON ar.rid = r.id
+        WHERE
+        a.id != #{id}
+        <if test="null!=keywords and ''!=keywords">
+            AND a.name like concat ('%',#{keywords},'%')
+        </if>
+        ORDER BY
+        a.id
     </select>
 </mapper>

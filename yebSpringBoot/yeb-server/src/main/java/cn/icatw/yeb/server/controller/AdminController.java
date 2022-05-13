@@ -1,12 +1,10 @@
 package cn.icatw.yeb.server.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import cn.icatw.yeb.server.common.R;
 import cn.icatw.yeb.server.domain.Admin;
 import cn.icatw.yeb.server.service.AdminService;
-import cn.icatw.yeb.server.common.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,9 +17,9 @@ import java.util.List;
  * @author icatw
  * @since 2022-05-11 16:38:32
  */
-@Api(tags = "(Admin)")
+@Api(tags = "操作员")
 @RestController
-@RequestMapping("admin")
+@RequestMapping("/system/admin")
 public class AdminController {
 
     /**
@@ -33,11 +31,10 @@ public class AdminController {
     /**
      * 分页查询所有数据
      */
-    @ApiOperation(value = "分页查询所有数据 ")
-    @GetMapping
-    public R page(@RequestParam int current, @RequestParam int size) {
-        Page<Admin> page = new Page<>(current, size);
-        return R.ok(this.adminService.page(page));
+    @ApiOperation(value = "获取所有操作员")
+    @GetMapping("/")
+    public List<Admin> getAllHrs(String keywords) {
+        return adminService.getAllAdmins(keywords);
     }
 
 
@@ -65,16 +62,22 @@ public class AdminController {
     @ApiOperation(value = "修改数据 ")
     @PutMapping
     public R updateById(@RequestBody Admin admin) {
-        return R.ok(this.adminService.updateById(admin));
+        if (this.adminService.updateById(admin)) {
+            return R.ok("更新成功！", "");
+        }
+        return R.fail("更新失败！");
     }
 
     /**
      * 单条/批量删除数据
      */
     @ApiOperation(value = "单条/批量删除数据 ")
-    @DeleteMapping
-    public R delete(@RequestParam List<Long> id) {
-        return R.ok(this.adminService.removeByIds(id));
+    @DeleteMapping("/{id}")
+    public R delete(@PathVariable Integer id) {
+        if (this.adminService.removeById(id)) {
+            return R.ok("删除成功！", "");
+        }
+        return R.fail("删除失败！");
     }
 }
 

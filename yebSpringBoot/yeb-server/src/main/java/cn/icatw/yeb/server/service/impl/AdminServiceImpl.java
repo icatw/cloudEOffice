@@ -4,6 +4,7 @@ import cn.icatw.yeb.server.common.R;
 import cn.icatw.yeb.server.domain.Role;
 import cn.icatw.yeb.server.domain.param.AdminLoginParam;
 import cn.icatw.yeb.server.mapper.RoleMapper;
+import cn.icatw.yeb.server.utils.AdminUtils;
 import cn.icatw.yeb.server.utils.JwtTokenUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -87,6 +88,11 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     public List<Role> getRoles(Integer adminId) {
 
         return roleMapper.getRoles(adminId);
+    }
+
+    @Override
+    public List<Admin> getAllAdmins(String keywords) {
+        return this.baseMapper.getAllAdmins(AdminUtils.getCurrentAdmin().getId(), keywords);
     }
 }
 
