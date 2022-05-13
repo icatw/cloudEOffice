@@ -7,9 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,8 +19,9 @@ import java.time.LocalDateTime;
  * @since 2022-05-11 16:54:54
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
+@EqualsAndHashCode(callSuper = false,of = "name")
 @ApiModel("Position")
 public class Position implements Serializable {
     private static final long serialVersionUID = -15118307803104487L;
@@ -37,6 +36,7 @@ public class Position implements Serializable {
      */
     @TableField(value = "name")
     @ApiModelProperty("职位")
+    @NonNull
     @Excel(name = "职位", width = 15)
     private String name;
 

@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -19,8 +17,9 @@ import java.io.Serializable;
  * @since 2022-05-11 16:54:54
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
+@EqualsAndHashCode(callSuper = false, of = "name")
 @ApiModel("Nation")
 public class Nation implements Serializable {
     private static final long serialVersionUID = 175011702776125447L;
@@ -35,6 +34,7 @@ public class Nation implements Serializable {
      */
     @TableField(value = "name")
     @ApiModelProperty("民族")
+    @NonNull
     @Excel(name = "民族")
     private String name;
 }
