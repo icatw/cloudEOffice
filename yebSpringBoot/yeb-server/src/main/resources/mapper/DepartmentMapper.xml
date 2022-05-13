@@ -8,9 +8,13 @@
         <result property="parentid" column="parentId" jdbcType="INTEGER"/>
         <result property="deppath" column="depPath" jdbcType="VARCHAR"/>
         <result property="enabled" column="enabled" jdbcType="INTEGER"/>
-        <result property="isparent" column="isParent" jdbcType="INTEGER"/>
+        <result property="parent" column="isParent" jdbcType="INTEGER"/>
     </resultMap>
-
+    <resultMap id="DepartmentWithChildren" type="cn.icatw.yeb.server.domain.Department" extends="DepartmentMap">
+        <collection property="children" ofType="cn.icatw.yeb.server.domain.Department"
+                    select="cn.icatw.yeb.server.mapper.DepartmentMapper.getAllDepartments" column="id">
+        </collection>
+    </resultMap>
     <!--查询指定行数据-->
     <select id="selectDepartmentList" resultMap="DepartmentMap">
         select
@@ -36,5 +40,15 @@
                 and isParent = #{isparent}
             </if>
         </where>
+    </select>
+    <!--  通用查询结果列  -->
+    <sql id="Base_Column_List">
+        id, name, parentId, depPath, enabled, isParent
+    </sql>
+    <!--    获取所有部门-->
+    <select id="getAllDepartments" resultMap="DepartmentWithChildren">
+        select
+        <include refid="Base_Column_List"/>
+        from t_department where parentId=#{parentId}
     </select>
 </mapper>

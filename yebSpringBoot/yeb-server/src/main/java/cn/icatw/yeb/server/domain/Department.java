@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * (Department)实体类
@@ -63,5 +64,13 @@ public class Department implements Serializable {
     @TableField(value = "isParent")
     @ApiModelProperty("是否上级")
     private Boolean parent;
+
+    @ApiModelProperty("子部门列表")
+    @TableField(exist = false)
+    private List<Department> children;
+
+    @ApiModelProperty("返回结果，存储过程使用")
+    @TableField(exist = false)
+    private Integer result;
 }
 
