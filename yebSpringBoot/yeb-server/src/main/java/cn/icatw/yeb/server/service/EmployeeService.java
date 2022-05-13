@@ -6,6 +6,7 @@ import cn.icatw.yeb.server.domain.Employee;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * (Employee)表服务接口
@@ -39,5 +40,13 @@ public interface EmployeeService extends IService<Employee> {
      * @return {@link R}
      */
     R maxWorkId();
+
+    /**
+     * 查询员工
+     *
+     * @param id
+     * @return
+     */
+    List<Employee> getEmployee(Integer id);
 }
 
