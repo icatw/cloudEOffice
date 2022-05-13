@@ -24,5 +24,20 @@ public interface EmployeeService extends IService<Employee> {
      * @return {@link R}
      */
     RespPageBean getEmployeeByPage(int current, int size, Employee employee, LocalDate[] beginDateScope);
+
+    /**
+     * 添加员工
+     *
+     * @param employee 员工
+     * @return {@link R}
+     */
+    R insertEmployee(Employee employee);
+
+    /**
+     * 获取工号
+     *
+     * @return {@link R}
+     */
+    R maxWorkId();
 }
 

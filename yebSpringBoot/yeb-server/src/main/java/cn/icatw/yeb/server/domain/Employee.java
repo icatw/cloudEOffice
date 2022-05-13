@@ -161,7 +161,7 @@ public class Employee implements Serializable {
     /**
      * 入职日期
      */
-    @TableField(value = "beginLocalDate")
+    @TableField(value = "beginDate")
     @ApiModelProperty("入职日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     private LocalDate begindate;
@@ -198,7 +198,7 @@ public class Employee implements Serializable {
     /**
      * 离职日期
      */
-    @TableField(value = "notWorkLocalDate")
+    @TableField(value = "notWorkDate")
     @ApiModelProperty("离职日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     private LocalDate notworkdate;
