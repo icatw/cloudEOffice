@@ -1,16 +1,16 @@
 package cn.icatw.yeb.server.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import cn.icatw.yeb.server.common.R;
+import cn.icatw.yeb.server.common.RespPageBean;
 import cn.icatw.yeb.server.domain.Employee;
 import cn.icatw.yeb.server.service.EmployeeService;
-import cn.icatw.yeb.server.common.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -19,7 +19,7 @@ import java.util.List;
  * @author icatw
  * @since 2022-05-11 16:38:35
  */
-@Api(tags = "(Employee)")
+@Api(tags = "员工")
 @RestController
 @RequestMapping("employee")
 public class EmployeeController {
@@ -35,9 +35,12 @@ public class EmployeeController {
      */
     @ApiOperation(value = "分页查询所有数据 ")
     @GetMapping
-    public R page(@RequestParam int current, @RequestParam int size) {
-        Page<Employee> page = new Page<>(current, size);
-        return R.ok(this.employeeService.page(page));
+    public RespPageBean page(@RequestParam(defaultValue = "1") int current,
+                             @RequestParam(defaultValue = "10") int size,
+                             Employee employee, LocalDate[] beginDateScope) {
+        return employeeService.getEmployeeByPage(current, size, employee, beginDateScope);
+        //Page<Employee> page = new Page<>(current, size);
+        //return R.ok(this.employeeService.page(page));
     }
 
 

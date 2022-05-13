@@ -1,13 +1,17 @@
 package cn.icatw.yeb.server.domain;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import io.swagger.annotations.*;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * (Employee)实体类
@@ -46,7 +50,8 @@ public class Employee implements Serializable {
      */
     @TableField(value = "birthday")
     @ApiModelProperty("出生日期")
-    private Date birthday;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    private LocalDate birthday;
 
     /**
      * 身份证号
@@ -156,16 +161,17 @@ public class Employee implements Serializable {
     /**
      * 入职日期
      */
-    @TableField(value = "beginDate")
+    @TableField(value = "beginLocalDate")
     @ApiModelProperty("入职日期")
-    private Date begindate;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    private LocalDate begindate;
 
     /**
      * 在职状态
      */
     @TableField(value = "workState")
     @ApiModelProperty("在职状态")
-    private Object workstate;
+    private String workstate;
 
     /**
      * 工号
@@ -186,28 +192,32 @@ public class Employee implements Serializable {
      */
     @TableField(value = "conversionTime")
     @ApiModelProperty("转正日期")
-    private Date conversiontime;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    private LocalDate conversiontime;
 
     /**
      * 离职日期
      */
-    @TableField(value = "notWorkDate")
+    @TableField(value = "notWorkLocalDate")
     @ApiModelProperty("离职日期")
-    private Date notworkdate;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    private LocalDate notworkdate;
 
     /**
      * 合同起始日期
      */
     @TableField(value = "beginContract")
     @ApiModelProperty("合同起始日期")
-    private Date begincontract;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    private LocalDate begincontract;
 
     /**
      * 合同终止日期
      */
     @TableField(value = "endContract")
     @ApiModelProperty("合同终止日期")
-    private Date endcontract;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    private LocalDate endcontract;
 
     /**
      * 工龄
@@ -222,5 +232,25 @@ public class Employee implements Serializable {
     @TableField(value = "salaryId")
     @ApiModelProperty("工资账套ID")
     private Integer salaryid;
+
+    @ApiModelProperty(value = "民族")
+    @TableField(exist = false)
+    private Nation nation;
+
+    @ApiModelProperty(value = "政治面貌")
+    @TableField(exist = false)
+    private PoliticsStatus politicsStatus;
+
+    @ApiModelProperty(value = "部门")
+    @TableField(exist = false)
+    private Department department;
+
+    @ApiModelProperty(value = "职称")
+    @TableField(exist = false)
+    private Joblevel joblevel;
+
+    @ApiModelProperty(value = "职位")
+    @TableField(exist = false)
+    private Position position;
 }
 
