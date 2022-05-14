@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
@@ -25,6 +27,10 @@ import java.util.Map;
  */
 @Service("employeeService")
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements EmployeeService {
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
     @Override
     public RespPageBean getEmployeeByPage(int current, int size, Employee employee, LocalDate[] beginDateScope) {
         //开启分页
@@ -47,7 +53,13 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         DecimalFormat decimalFormat = new DecimalFormat("##.00");
         //保存合同期限，以年为单位并且保留两位小数
         employee.setContractterm(Double.parseDouble(decimalFormat.format(days / 365.00)));
-        return this.baseMapper.insert(employee) == 1 ? R.ok("添加成功！", "") : R.fail("添加失败！");
+        if (this.baseMapper.insert(employee) == 1) {
+            Employee emp = this.baseMapper.getEmployee(employee.getId()).get(0);
+            //添加员工成功之后，rabbitMQ发送消息
+            rabbitTemplate.convertAndSend("mail.welcome", emp);
+            return R.ok("添加成功！", "");
+        }
+        return R.fail("添加失败！");
     }
 
     @Override
