@@ -60,7 +60,29 @@
             <result column="posname" property="name"/>
         </association>
     </resultMap>
-
+    <resultMap id="EmployeeWithSalary" type="cn.icatw.yeb.server.domain.Employee" extends="EmployeeMap">
+        <association property="salary" javaType="cn.icatw.yeb.server.domain.Salary">
+            <id column="sid" property="id"/>
+            <result column="sbasicSalary" property="basicsalary"/>
+            <result column="sbonus" property="bonus"/>
+            <result column="slunchSalary" property="lunchsalary"/>
+            <result column="strafficSalary" property="trafficsalary"/>
+            <result column="sallSalary" property="allsalary"/>
+            <result column="spensionBase" property="pensionbase"/>
+            <result column="spensionPer" property="pensionper"/>
+            <result column="smedicalBase" property="medicalbase"/>
+            <result column="smedicalPer" property="medicalper"/>
+            <result column="saccumulationFundBase"
+                    property="accumulationfundbase"/>
+            <result column="saccumulationFundPer"
+                    property="accumulationfundper"/>
+            <result column="sname" property="name"/>
+        </association>
+        <association property="department"
+                     javaType="cn.icatw.yeb.server.domain.Department">
+            <result column="dname" property="name"/>
+        </association>
+    </resultMap>
     <!--查询指定行数据-->
     <select id="selectEmployeeList" resultMap="EmployeeMap">
         select
@@ -244,5 +266,28 @@
         </if>
         ORDER BY e.id
     </select>
+    <!--获取所有员工账套-->
+    <select id="getEmployeeWithSalary" resultMap="EmployeeWithSalary">
+        SELECT e.*,
+               d.`name`               AS dname,
+               s.id                   AS sid,
+               s.`name`               AS sname,
+               s.basicSalary          AS sbasicSalary,
+               s.trafficSalary        AS strafficSalary,
+               s.lunchSalary          AS slunchSalary,
+               s.bonus                AS sbonus,
+               s.allSalary            AS sallSalary,
+               s.pensionPer           AS spensionPer,
+               s.pensionBase          AS spensionBase,
+               s.medicalPer           AS smedicalPer,
+               s.medicalBase          AS smedicalBase,
+               s.accumulationFundPer  AS saccumulationFundPer,
+               s.accumulationFundBase AS saccumulationFundBase
+        FROM t_employee AS e
+                 LEFT JOIN t_salary AS s ON e.salaryId = s.id
+                 LEFT JOIN t_department AS d ON e.departmentId = d.id
+        ORDER BY e.id
+    </select>
+
 
 </mapper>
