@@ -49,7 +49,7 @@ public class MailTask {
                     mailLogService.update(new UpdateWrapper<MailLog>()
                             .set("count", mailLog.getCount() + 1)
                             .set("updateTime", LocalDateTime.now())
-                            .set("tyrTime", LocalDateTime.now().plusMinutes(MailConstants.MSG_TIMEOUT))
+                            .set("tryTime", LocalDateTime.now().plusMinutes(MailConstants.MSG_TIMEOUT))
                             .eq("msgId", mailLog.getMsgid()));
                     //查询邮件对应的员工
                     Employee employee = employeeService.getEmployee(mailLog.getEid()).get(0);
