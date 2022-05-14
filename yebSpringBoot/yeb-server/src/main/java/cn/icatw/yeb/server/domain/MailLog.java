@@ -1,13 +1,14 @@
 package cn.icatw.yeb.server.domain;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import io.swagger.annotations.*;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * (MailLog)实体类
@@ -69,20 +70,20 @@ public class MailLog implements Serializable {
      */
     @TableField(value = "tryTime")
     @ApiModelProperty("重试时间")
-    private Date trytime;
+    private LocalDateTime trytime;
 
     /**
      * 创建时间
      */
     @TableField(value = "createTime")
     @ApiModelProperty("创建时间")
-    private Date createtime;
+    private LocalDateTime createtime;
 
     /**
      * 更新时间
      */
     @TableField(value = "updateTime")
     @ApiModelProperty("更新时间")
-    private Date updatetime;
+    private LocalDateTime updatetime;
 }
 

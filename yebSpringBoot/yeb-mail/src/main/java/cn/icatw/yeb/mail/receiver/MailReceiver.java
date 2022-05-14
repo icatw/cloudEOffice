@@ -53,7 +53,7 @@ public class MailReceiver {
             //    邮件内容，将员工信息设置到thymeleaf上下文中
             Context context = new Context();
             context.setVariable("name", employee.getName());
-            context.setVariable("posName", employee.getPosition());
+            context.setVariable("posName", employee.getPosition().getName());
             context.setVariable("joblevelName", employee.getJoblevel().getName());
             context.setVariable("departmentName", employee.getDepartment().getName());
             String mail = templateEngine.process("mail", context);
