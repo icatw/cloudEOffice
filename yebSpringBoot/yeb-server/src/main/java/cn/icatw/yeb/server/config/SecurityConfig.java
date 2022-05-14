@@ -52,7 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/v2/**",
             "/swagger-resources/**",
             "/doc.html",
-            "/upload"
+            "/upload",
+            "/ws/**"
     };
 
     @Override
