@@ -1,13 +1,17 @@
 package cn.icatw.yeb.server.domain;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import io.swagger.annotations.*;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * (Salary)实体类
@@ -81,7 +85,8 @@ public class Salary implements Serializable {
      */
     @TableField(value = "createDate")
     @ApiModelProperty("启用时间")
-    private Date createdate;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+    private LocalDateTime createdate;
 
     /**
      * 医疗基数

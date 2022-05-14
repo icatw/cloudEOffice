@@ -1,16 +1,15 @@
 package cn.icatw.yeb.server.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import cn.icatw.yeb.server.common.R;
 import cn.icatw.yeb.server.domain.Salary;
 import cn.icatw.yeb.server.service.SalaryService;
-import cn.icatw.yeb.server.common.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -19,9 +18,9 @@ import java.util.List;
  * @author icatw
  * @since 2022-05-11 16:38:42
  */
-@Api(tags = "(Salary)")
+@Api(tags = "工资账套模块")
 @RestController
-@RequestMapping("salary")
+@RequestMapping("/salary/sob")
 public class SalaryController {
 
     /**
@@ -30,16 +29,21 @@ public class SalaryController {
     @Resource
     private SalaryService salaryService;
 
-    /**
-     * 分页查询所有数据
-     */
-    @ApiOperation(value = "分页查询所有数据 ")
-    @GetMapping
-    public R page(@RequestParam int current, @RequestParam int size) {
-        Page<Salary> page = new Page<>(current, size);
-        return R.ok(this.salaryService.page(page));
-    }
+    ///**
+    // * 分页查询所有数据
+    // */
+    //@ApiOperation(value = "分页查询所有数据 ")
+    //@GetMapping
+    //public R page(@RequestParam int current, @RequestParam int size) {
+    //    Page<Salary> page = new Page<>(current, size);
+    //    return R.ok(this.salaryService.page(page));
+    //}
 
+    @ApiOperation(value = "获取所有工资账套")
+    @GetMapping("/")
+    public List<Salary> getAllSalaries() {
+        return salaryService.list();
+    }
 
     /**
      * 通过主键查询单条数据
@@ -56,7 +60,11 @@ public class SalaryController {
     @ApiOperation(value = "新增数据 ")
     @PostMapping
     public R save(@RequestBody Salary salary) {
-        return R.ok(this.salaryService.save(salary));
+        salary.setCreatedate(LocalDateTime.now());
+        if (this.salaryService.save(salary)) {
+            return R.ok("添加成功！", "");
+        }
+        return R.fail("添加失败！");
     }
 
     /**
@@ -65,16 +73,22 @@ public class SalaryController {
     @ApiOperation(value = "修改数据 ")
     @PutMapping
     public R updateById(@RequestBody Salary salary) {
-        return R.ok(this.salaryService.updateById(salary));
+        if (this.salaryService.updateById(salary)) {
+            return R.ok("更新成功！", "");
+        }
+        return R.fail("更新失败！");
     }
 
     /**
-     * 单条/批量删除数据
+     * 单条删除数据
      */
-    @ApiOperation(value = "单条/批量删除数据 ")
-    @DeleteMapping
-    public R delete(@RequestParam List<Long> id) {
-        return R.ok(this.salaryService.removeByIds(id));
+    @ApiOperation(value = "单条删除数据 ")
+    @DeleteMapping("/{id}")
+    public R delete(@PathVariable Integer id) {
+        if (this.salaryService.removeById(id)) {
+            return R.ok("删除成功！", "");
+        }
+        return R.fail("删除失败！");
     }
 }
 
