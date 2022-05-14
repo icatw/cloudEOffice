@@ -26,3 +26,18 @@ spring:
     host: 192.168.17.130
     # 端口
     port: 5672
+    listener:
+      simple:
+        #        开启ack手动确认
+        acknowledge-mode: MANUAL
+  redis:
+    timeout: 10000ms
+    host: 192.168.17.130
+    port: 6379
+    database: 0
+    lettuce:
+      pool:
+        max-active: 1024
+        max-wait: 10000ms
+        max-idle: 200
+        min-idle: 5

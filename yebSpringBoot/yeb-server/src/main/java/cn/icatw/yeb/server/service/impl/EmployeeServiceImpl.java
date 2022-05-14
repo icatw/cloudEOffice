@@ -86,6 +86,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
             //保存邮件记录
             mailLogService.save(mailLog);
             //添加员工成功之后，rabbitMQ发送消息，并添加消息唯一id
+            //此处将id携带发送过去，邮件服务接受到之后判断
             rabbitTemplate.convertAndSend(MailConstants.MAIL_EXCHANGE_NAME,
                     MailConstants.MAIL_ROUTING_KEY_NAME, emp,
                     new CorrelationData(msgId));
