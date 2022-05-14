@@ -32,7 +32,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
-    @Value("{jwt.tokenHead}")
+    @Value("${jwt.tokenHead}")
     private String tokenHead;
     @Autowired
     UserDetailsService userDetailsService;
@@ -46,7 +46,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
           2.setAllowedOrigins("*") 允许跨域
           3.withSockJS(表示支持socketJS访问)
          */
-        registry.addEndpoint("/ws/ep").setAllowedOrigins("*").withSockJS();
+        registry.addEndpoint("/ws/ep").setAllowedOriginPatterns("*").withSockJS();
     }
 
     /**

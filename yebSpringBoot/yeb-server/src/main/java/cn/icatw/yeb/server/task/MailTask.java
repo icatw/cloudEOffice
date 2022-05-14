@@ -38,8 +38,10 @@ public class MailTask {
      * 邮件任务
      * 定时十秒钟查询失败的邮件进行重发
      */
-    @Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0 0 12 * * ?")
+    //@Scheduled(cron = "0/10 * * * * ?")
     public void mailTask() {
+        //每天十二点定时
         //    邮件状态为0且重试时间小于当前时间的才需要重新发送
         List<MailLog> list = mailLogService.list(new QueryWrapper<MailLog>().eq("status", 0)
                 .lt("tryTime", LocalDateTime.now()));
