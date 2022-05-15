@@ -5,7 +5,7 @@
         <div class="title">云e办</div>
         <el-dropdown class="userInfo" @command="commandHandler">
           <span class="el-dropdown-link">
-            {{ user.name }}<i><img :src="user.userFace"></i>
+            {{ user.name }}<i><img :src="user.userface"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="userInfo">个人中心</el-dropdown-item>
@@ -17,16 +17,26 @@
       <el-container>
         <el-aside width="200px">
           <el-menu router unique-opened>
-            <el-submenu :index="index+''"
-                        v-for="(item, index) in routes"
-                        :key="index" v-if="!item.hidden">
-              <template slot="title">
-                <i :class="item.iconCls" style="color: #1accff;margin-right: 5px"></i>
-                <span>{{ item.name }}</span>
-              </template>
-              <el-menu-item :index="children.path" v-for="(children,indexj) in item.children ">
-                {{ children.name }}
-              </el-menu-item>
+            <el-submenu
+                :index="index + ''"
+                v-for="(item, index) in routes"
+                :key="index"
+                v-if="!item.hidden"
+            >
+              <template slot="title"
+              ><i
+                  :class="item.iconcls"
+                  style="color: #1accff; margin-right: 5px"
+              ></i
+              ><span>{{ item.name }}</span></template
+              >
+              <el-menu-item
+                  :index="children.path"
+                  v-for="(children, indexj) in item.children"
+                  :key="indexj"
+              >{{ children.name }}
+              </el-menu-item
+              >
             </el-submenu>
           </el-menu>
         </el-aside>

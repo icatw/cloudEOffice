@@ -12,6 +12,7 @@ export const initMenu = (router, store) => {
             router.addRoutes(fmtRoutes)
             //将数据存入到vuex
             store.commit('initRoutes', fmtRoutes)
+            console.log(fmtRoutes)
         }
     })
 }
@@ -23,7 +24,7 @@ export const formatRoutes = (routes) => {
             path,
             component,
             name,
-            iconCls,
+            iconcls,
             children,
         } = router;
         if (children && children instanceof Array) {
@@ -33,7 +34,7 @@ export const formatRoutes = (routes) => {
         let fmRouter = {
             path: path,
             name: name,
-            iconCls: iconCls,
+            iconcls: iconcls,
             children: children,
             component(resolve) {
                 if (component.startsWith('Home')){
