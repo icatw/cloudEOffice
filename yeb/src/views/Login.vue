@@ -66,16 +66,24 @@ export default {
               const tokenStr = resp.data.tokenHead + resp.data.token
               window.sessionStorage.setItem('tokenStr', tokenStr)
               //跳转首页
-              this.$router.replace('/home')
-            }
-          })
-        } else {
-          this.$message.error("请输入所有字段！")
-          return false;
+              let path = this.$route.query.redirect
+              this.$router.replace(
+                  path == '/' || path == undefined ? '/home' : path
+              )
+          }
         }
-      });
+      )
+      }
+    else
+      {
+        this.$message.error("请输入所有字段！")
+        return false;
+      }
     }
-  }
+)
+;
+}
+}
 }
 </script>
 

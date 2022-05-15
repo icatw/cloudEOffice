@@ -33,7 +33,12 @@ router.beforeEach(((to, from, next) => {
         }
         next();
     } else {
-        next()
+        if (to.path == '/') {
+            next()
+        } else {
+            //如果没有登录，重定向
+            next('?/redirect=' + to.path)
+        }
     }
 
 }))

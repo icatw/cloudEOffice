@@ -4,6 +4,7 @@ import Login from "../views/Login";
 import Home from "../views/Home";
 import Test1 from "../views/Test1";
 import Test2 from "../views/Test2";
+import NotFound from "../views/NotFound";
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,16 @@ const routes = [
             }
         ]
     },
+    {
+        path: '/404',
+        name: '404',
+        component: NotFound
+    },
+    {
+        path: '*',
+        redirect: '/404'
+    }
+
 
 ]
 

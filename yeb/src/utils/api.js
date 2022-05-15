@@ -14,6 +14,7 @@ axios.interceptors.request.use(config => {
 
 //响应拦截器
 axios.interceptors.response.use(success => {
+
 //    业务逻辑错误
         if (success.status && success.status == 200) {
             // if (success.data.code === 500 || success.data.code === 401 || success.data.code === 403) {
@@ -22,6 +23,10 @@ axios.interceptors.response.use(success => {
             // }
             if (success.data.code && success.data.code != 200) {
                 Message.error(success.data.msg)
+                console.log(success.data.code)
+                if (success.data.code == 305) {
+                    router.push('/login')
+                }
                 return
             }
             if (success.data.msg) {
@@ -31,6 +36,7 @@ axios.interceptors.response.use(success => {
         return success.data
     },
     error => {
+        console.log(error)
         if (error.response.code === 504 || error.response.code === 404) {
             Message.error({message: '服务器被吃了...'})
         } else if (error.response.code === 403) {
