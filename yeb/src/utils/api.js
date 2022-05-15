@@ -20,7 +20,7 @@ axios.interceptors.response.use(success => {
             //     Message.error({message: success.data.message})
             //     return
             // }
-            if (success.data.code != 200) {
+            if (success.data.code && success.data.code != 200) {
                 Message.error(success.data.msg)
                 return
             }

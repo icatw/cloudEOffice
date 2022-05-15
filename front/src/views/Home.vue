@@ -10,7 +10,7 @@
             type="text"
             icon="el-icon-bell"
             size="normal"
-            style="color:black;margin-right 10px"
+            style="color:black;margin-right: 10px"
             @click="goChat"
           ></el-button>
           <el-dropdown class="userInfo" @command="commandHandler">

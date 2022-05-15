@@ -8,7 +8,8 @@ import {postRequest} from "./utils/api";
 import {putRequest} from "./utils/api";
 import {getRequest} from "./utils/api";
 import {deleteRequest} from "./utils/api";
-
+import {initMenu} from "./utils/menus";
+import 'font-awesome/css/font-awesome.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
@@ -17,6 +18,27 @@ Vue.prototype.postRequest = postRequest;
 Vue.prototype.getRequest = getRequest;
 Vue.prototype.deleteRequest = deleteRequest;
 Vue.prototype.putRequest = putRequest;
+
+router.beforeEach(((to, from, next) => {
+    if (window.sessionStorage.getItem('tokenStr')) {
+        initMenu(router, store)
+        if (!window.sessionStorage.getItem('user')) {
+            //判断用户信息是否存在
+            return getRequest('/admin/info').then(resp => {
+                if (resp) {
+                    window.sessionStorage.setItem('user', JSON.stringify(resp))
+                    next()
+                }
+            })
+        }
+        next();
+    } else {
+        next()
+    }
+
+}))
+
+
 new Vue({
     router,
     store,
