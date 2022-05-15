@@ -57,8 +57,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         HttpSession session = request.getSession();
         //session中的验证码
         String captcha = (String) session.getAttribute("captcha");
-        //清除验证码session
-        session.removeAttribute("captcha");
+        //清除验证码session TODO bug
+        //session.removeAttribute("captcha");
         if (!captcha.equalsIgnoreCase(code) || StringUtils.isEmpty(code)) {
             return R.fail("验证码错误，请重新输入！");
         }

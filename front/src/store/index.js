@@ -60,7 +60,7 @@ const store = new Vuex.Store({
             let token = window.sessionStorage.getItem('tokenStr')
             console.log("token: ", token)
             context.state.stomp.connect({'Auth-Token': token}, success => {
-                context.state.stomp.subscribe('/user/queue/chat', msg => {
+                context.state.stomp.subscribe('/queue/chat', msg => {
                     let receiveMsg = JSON.parse(msg.body)
                     if (!context.state.currentSession || receiveMsg.from != context.state.currentSession.username) {
                         Notification.info({

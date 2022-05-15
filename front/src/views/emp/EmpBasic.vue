@@ -1052,7 +1052,7 @@ export default {
       }
 
       if (!window.sessionStorage.getItem('politicsstatus')) {
-        this.getRequest('/employee/basic/politicsStatus').then((resp) => {
+        this.getRequest('/employee/basic/politicsstatus').then((resp) => {
           if (resp) {
             this.politicsstatus = resp
             window.sessionStorage.setItem(
