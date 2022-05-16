@@ -15,8 +15,10 @@
         </el-dropdown>
       </el-header>
       <el-container>
-        <el-aside width="180px">
-          <el-menu router unique-opened>
+
+        <el-aside :width="isCollapse?'68px':'180px'">
+
+          <el-menu router unique-opened :collapse="isCollapse" :collapse-transition=false>
             <el-submenu
                 :index="index + ''"
                 v-for="(item, index) in routes"
@@ -39,8 +41,16 @@
               >
             </el-submenu>
           </el-menu>
+
+
         </el-aside>
+
         <el-main>
+          <!--          折叠菜单-->
+          <el-button :icon="isCollapse?unfold:fold"
+                     size="small"
+                     style="color: #989fa7;margin-bottom: 5px;padding: 8px"
+                     @click="foldMenu"></el-button>
           <!--          面包屑导航-->
           <el-breadcrumb
               separator-class="el-icon-arrow-right"
@@ -69,7 +79,11 @@ export default {
   data() {
     return {
       //将字符串转为对象
-      user: JSON.parse(window.sessionStorage.getItem('user'))
+      user: JSON.parse(window.sessionStorage.getItem('user')),
+      isCollapse: true,
+      //  true折叠，false打开
+      unfold: 'el-icon-s-unfold',
+      fold: 'el-icon-s-fold'
     }
   },
   computed: {
@@ -78,6 +92,9 @@ export default {
     }
   },
   methods: {
+    foldMenu() {
+      this.isCollapse = !this.isCollapse
+    },
     commandHandler(command) {
       if (command == 'logout') {
         this.$confirm('此操作将注销登录, 是否继续?', '提示', {
