@@ -5,7 +5,7 @@
         <template slot="prepend">ROLE_</template>
       </el-input>
       <el-input
-          v-model="role.nameZh"
+          v-model="role.namezh"
           placeholder="请输入角色中文名"
           size="small"
           @keydown.enter.native="doAddRole"
@@ -23,7 +23,7 @@
     <div class="permissManaMain">
       <el-collapse accordion @change="change" v-model="activeName">
         <el-collapse-item
-            :title="r.nameZh"
+            :title="r.namezh"
             :name="r.id"
             v-for="(r, index) in roles"
             :key="index"
@@ -77,7 +77,7 @@ export default {
     return {
       role: {
         name: '',
-        nameZh: '',
+        namezh: '',
       },
       roles: [],
       allMenus: [],
@@ -136,12 +136,12 @@ export default {
       this.activeName = -1
     },
     doAddRole() {
-      if (this.role.name && this.role.nameZh) {
+      if (this.role.name && this.role.namezh) {
         this.postRequest('/system/basic/permiss/', this.role).then((resp) => {
           if (resp) {
             this.initRoles()
             this.role.name = ''
-            this.role.nameZh = ''
+            this.role.namezh = ''
           }
         })
       } else {
@@ -149,7 +149,7 @@ export default {
       }
     },
     doDeleteRole(role) {
-      this.$confirm('此操作将删[' + role.nameZh + ']角色, 是否继续?', '提示', {
+      this.$confirm('此操作将删[' + role.namezh + ']角色, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',

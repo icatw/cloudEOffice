@@ -31,9 +31,9 @@
           :data="positions"
           stripe
           border
-          style="width: 49%">
-        @selection-change="handleSelectionChange"
-        >
+          style="width: 49%"
+          @selection-change="handleSelectionChange"
+      >
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="id" label="编号" width="55"></el-table-column>
         <el-table-column prop="name" label="职位" width="120">
