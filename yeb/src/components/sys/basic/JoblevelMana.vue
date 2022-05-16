@@ -161,7 +161,8 @@ export default {
     initJls() {
       this.getRequest('/system/basic/joblevel/').then((resp) => {
         if (resp) {
-          this.jls = resp
+          console.log(resp)
+          this.jls = resp.data.records
           this.jl.name = ''
           this.jl.titleLevel = ''
         }

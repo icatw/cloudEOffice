@@ -31,7 +31,7 @@
         <el-table-column prop="id" label="编号" width="55"> </el-table-column>
         <el-table-column prop="name" label="职位" width="120">
         </el-table-column>
-        <el-table-column prop="createDate" label="创建时间" width="200">
+        <el-table-column prop="createdate" label="创建时间" width="200">
         </el-table-column>
         <el-table-column prop="enabled" label="是否启用" width="150">
           <template slot-scope="scope">
@@ -122,7 +122,8 @@ export default {
     initPositions() {
       this.getRequest('/system/basic/pos/').then((resp) => {
         if (resp) {
-          this.positions = resp
+          console.log(resp)
+          this.positions = resp.data.records
         }
       })
     },

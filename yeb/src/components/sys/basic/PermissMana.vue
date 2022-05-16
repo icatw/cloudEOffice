@@ -5,58 +5,61 @@
         <template slot="prepend">ROLE_</template>
       </el-input>
       <el-input
-        v-model="role.nameZh"
-        placeholder="请输入角色中文名"
-        size="small"
-        @keydown.enter.native="doAddRole"
+          v-model="role.nameZh"
+          placeholder="请输入角色中文名"
+          size="small"
+          @keydown.enter.native="doAddRole"
       ></el-input>
       <el-button
-        type="primary"
-        size="small"
-        icon="el-icon-plus"
-        @click="doAddRole"
-        >添加角色</el-button
+          type="primary"
+          size="small"
+          icon="el-icon-plus"
+          @click="doAddRole"
+      >添加角色
+      </el-button
       >
     </div>
     <!-- 手风琴 -->
     <div class="permissManaMain">
       <el-collapse accordion @change="change" v-model="activeName">
         <el-collapse-item
-          :title="r.nameZh"
-          :name="r.id"
-          v-for="(r, index) in roles"
-          :key="index"
+            :title="r.nameZh"
+            :name="r.id"
+            v-for="(r, index) in roles"
+            :key="index"
         >
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>可访问资源</span>
               <el-button
-                style="float: right; padding: 3px 0; color: #ff0000"
-                type="text"
-                icon="el-icon-delete"
-                @click="doDeleteRole(r)"
+                  style="float: right; padding: 3px 0; color: #ff0000"
+                  type="text"
+                  icon="el-icon-delete"
+                  @click="doDeleteRole(r)"
               ></el-button>
             </div>
             <div>
               <!-- 树形控件 -->
               <el-tree
-                show-checkbox
-                :data="allMenus"
-                :props="defaultProps"
-                ref="tree"
-                :default-checked-keys="selectedMenus"
-                node-key="id"
-                :key="index"
+                  show-checkbox
+                  :data="allMenus"
+                  :props="defaultProps"
+                  ref="tree"
+                  :default-checked-keys="selectedMenus"
+                  node-key="id"
+                  :key="index"
               ></el-tree>
               <div style="display: flex; justify-content: flex-end">
                 <el-button size="mini" @click="cancelUpdate"
-                  >取消修改</el-button
+                >取消修改
+                </el-button
                 >
                 <el-button
-                  type="primary"
-                  size="mini"
-                  @click="doUpdate(r.id, index)"
-                  >确认修改</el-button
+                    type="primary"
+                    size="mini"
+                    @click="doUpdate(r.id, index)"
+                >确认修改
+                </el-button
                 >
               </div>
             </div>
@@ -90,6 +93,7 @@ export default {
     initRoles() {
       this.getRequest('/system/basic/permiss/').then((resp) => {
         if (resp) {
+          console.log('权限组===>', resp)
           this.roles = resp
         }
       })
@@ -150,21 +154,21 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       })
-        .then(() => {
-          this.deleteRequest('/system/basic/permiss/role/' + role.id).then(
-            (resp) => {
-              if (resp) {
-                this.initRoles()
-              }
-            }
-          )
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除',
+          .then(() => {
+            this.deleteRequest('/system/basic/permiss/role/' + role.id).then(
+                (resp) => {
+                  if (resp) {
+                    this.initRoles()
+                  }
+                }
+            )
           })
-        })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除',
+            })
+          })
     },
   },
   mounted() {
@@ -178,10 +182,12 @@ export default {
   display: flex;
   justify-content: flex-start;
 }
+
 .permissManaTool .el-input {
   width: 300px;
   margin-right: 6px;
 }
+
 .permissManaMain {
   margin-top: 10px;
   width: 700px;

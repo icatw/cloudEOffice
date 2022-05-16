@@ -26,9 +26,6 @@ export default {
         })
       }
     }
-  },
-  mounted() {
-    (document.getElementById('loading')).style.display = "none"
   }
 }
 </script>
