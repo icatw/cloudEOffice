@@ -41,6 +41,7 @@
           </el-menu>
         </el-aside>
         <el-main>
+          <!--          面包屑导航-->
           <el-breadcrumb
               separator-class="el-icon-arrow-right"
               v-if="this.$router.currentRoute.path != '/home'">
@@ -142,5 +143,9 @@ export default {
   font-family: 华文楷体;
   color: #409eff;
   padding-top: 50px;
+}
+
+.homeRouterView {
+  margin-top: 10px;
 }
 </style>

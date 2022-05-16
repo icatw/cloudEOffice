@@ -60,8 +60,8 @@ export default {
           this.loading = true
           this.postRequest('/login', this.loginForm).then(resp => {
             console.log(JSON.stringify(resp))
+            this.loading = false
             if (resp.code === 200) {
-              this.loading = false
               //存储用户token
               const tokenStr = resp.data.tokenHead + resp.data.token
               window.sessionStorage.setItem('tokenStr', tokenStr)
