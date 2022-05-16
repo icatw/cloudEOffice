@@ -2,43 +2,52 @@
   <div>
     <div>
       <el-input
-        v-model="jl.name"
-        size="small"
-        placeholder="请添加职称等级..."
-        prefix-icon="el-icon-plus"
-        style="width: 300px"
+          v-model="jl.name"
+          size="small"
+          placeholder="请添加职称等级..."
+          prefix-icon="el-icon-plus"
+          style="width: 300px"
       ></el-input>
       <el-select
-        size="small"
-        v-model="jl.titlelevel"
-        placeholder="职称等级"
-        style="margin-left: 6px; margin-right: 6px"
+          size="small"
+          v-model="jl.titlelevel"
+          placeholder="职称等级"
+          style="margin-left: 6px; margin-right: 6px"
       >
         <el-option
-          v-for="item in titleLevels"
-          :key="item"
-          :label="item"
-          :value="item"
+            v-for="item in titleLevels"
+            :key="item"
+            :label="item"
+            :value="item"
         >
         </el-option>
       </el-select>
       <el-button
-        size="small"
-        type="primary"
-        icon="el-icon-plus"
-        @click="addJobLevel"
-        >添加</el-button
+          size="small"
+          type="primary"
+          icon="el-icon-plus"
+          @click="addJobLevel"
+      >添加
+      </el-button
       >
+      <el-button
+          type="danger"
+          size="small"
+          style="margin-top: 10px"
+          :disabled="this.multipleSelection.length == 0"
+          @click="deleteMany">
+        批量删除
+      </el-button>
     </div>
     <div style="margin-top: 10px">
       <el-table
-        :data="jls"
-        size="small"
-        border
-        @selection-change="handleSelectionChange"
+          :data="jls"
+          size="small"
+          border
+          @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="=55"></el-table-column>
-        <el-table-column prop="id" label="编号" width="55"> </el-table-column>
+        <el-table-column prop="id" label="编号" width="55"></el-table-column>
         <el-table-column prop="name" label="职称名称" width="150">
         </el-table-column>
         <el-table-column prop="titlelevel" label="职称等级" width="150">
@@ -52,72 +61,84 @@
           </template>
         </el-table-column>
         <el-table-column label="操作" width="150px"
-          ><template slot-scope="scope">
+        >
+          <template slot-scope="scope">
             <el-button
-              size="small"
-              type="primary"
-              @click="showEditView(scope.row)"
-              >编辑</el-button
+                size="small"
+                type="primary"
+                @click="showEditView(scope.row)"
+            >编辑
+            </el-button
             >
             <el-button
-              size="small"
-              type="danger"
-              @click="deleteHandle(scope.row)"
-              >删除</el-button
+                size="small"
+                type="danger"
+                @click="deleteHandle(scope.row)"
+            >删除
+            </el-button
             >
-          </template></el-table-column
+          </template>
+        </el-table-column
         >
       </el-table>
-      <el-button
-        type="danger"
-        size="small"
-        style="margin-top: 10px"
-        :disabled="this.multipleSelection.length == 0"
-        @click="deleteMany"
-        >批量删除</el-button
-      >
+      <!--页码-->
+      <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="current"
+          :page-sizes="[5, 10, 50, 100]"
+          :page-size="size"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total">
+      </el-pagination>
     </div>
     <el-dialog title="编辑职称" :visible.sync="dialogVisible" width="30%">
       <table>
         <tr>
-          <td><el-tag>职称名称</el-tag></td>
+          <td>
+            <el-tag>职称名称</el-tag>
+          </td>
           <td>
             <el-input
-              v-model="updateJl.name"
-              size="small"
-              style="margin-left: 6px"
+                v-model="updateJl.name"
+                size="small"
+                style="margin-left: 6px"
             ></el-input>
           </td>
         </tr>
         <tr>
-          <td><el-tag>职称等级</el-tag></td>
+          <td>
+            <el-tag>职称等级</el-tag>
+          </td>
           <td>
             <el-select
-              size="small"
-              v-model="updateJl.titlelevel"
-              placeholder="职称等级"
-              style="margin-left: 6px; margin-right: 6px"
+                size="small"
+                v-model="updateJl.titlelevel"
+                placeholder="职称等级"
+                style="margin-left: 6px; margin-right: 6px"
             >
               <el-option
-                v-for="item in titleLevels"
-                :key="item"
-                :label="item"
-                :value="item"
+                  v-for="item in titleLevels"
+                  :key="item"
+                  :label="item"
+                  :value="item"
               >
               </el-option>
             </el-select>
           </td>
         </tr>
         <tr>
-          <td><el-tag>是否启用</el-tag></td>
+          <td>
+            <el-tag>是否启用</el-tag>
+          </td>
           <td>
             <el-switch
-              style="margin-left: 6px"
-              v-model="updateJl.enabled"
-              active-color="#13ce66"
-              inactive-color="#ff4949"
-              active-text="已启用"
-              inactive-text="未启用"
+                style="margin-left: 6px"
+                v-model="updateJl.enabled"
+                active-color="#13ce66"
+                inactive-color="#ff4949"
+                active-text="已启用"
+                inactive-text="未启用"
             >
             </el-switch>
           </td>
@@ -126,7 +147,7 @@
       <span slot="footer" class="dialog-footer">
         <el-button size="small" @click="dialogVisible = false">取 消</el-button>
         <el-button size="small" type="primary" @click="doUpdate"
-          >确 定</el-button
+        >确 定</el-button
         >
       </span>
     </el-dialog>
@@ -134,10 +155,15 @@
 </template>
 
 <script>
+import current from "element-ui/packages/table/src/store/current";
+
 export default {
   name: 'JoblevelMana',
   data() {
     return {
+      current: 1,
+      total: 0,
+      size: 10,
       jl: {
         name: '',
         titlelevel: '',
@@ -151,6 +177,10 @@ export default {
         enabled: false,
       },
       multipleSelection: [],
+      PageVo: {
+        current: this.current,
+        size: this.size
+      }
     }
   },
   mounted() {
@@ -158,9 +188,12 @@ export default {
   },
   methods: {
     initJls() {
-      this.getRequest('/system/basic/joblevel/').then((resp) => {
+      this.getRequest('/system/basic/joblevel/'+this.current+'/'+this.size).then((resp) => {
         if (resp) {
           console.log(resp)
+          this.current = resp.data.current
+          this.size = resp.data.size
+          this.total = resp.data.total
           this.jls = resp.data.records
           this.jl.name = ''
           this.jl.titlelevel = ''
@@ -184,21 +217,21 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       })
-        .then(() => {
-          this.deleteRequest('/system/basic/joblevel/' + data.id).then(
-            (resp) => {
-              if (resp) {
-                this.initJls()
-              }
-            }
-          )
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除',
+          .then(() => {
+            this.deleteRequest('/system/basic/joblevel/' + data.id).then(
+                (resp) => {
+                  if (resp) {
+                    this.initJls()
+                  }
+                }
+            )
           })
-        })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除',
+            })
+          })
     },
     showEditView(data) {
       Object.assign(this.updateJl, data)
@@ -216,34 +249,42 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val
     },
-    deleteMany(){
+    deleteMany() {
       this.$confirm(
-        '此操作将删[' + this.multipleSelection.length + ']条职称, 是否继续?',
-        '提示',
-        {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-        }
+          '此操作将删[' + this.multipleSelection.length + ']条职称, 是否继续?',
+          '提示',
+          {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+          }
       )
-        .then(() => {
-          let ids = '?'
-          this.multipleSelection.forEach((item) => {
-            ids += 'ids=' + item.id + '&'
+          .then(() => {
+            let ids = '?'
+            this.multipleSelection.forEach((item) => {
+              ids += 'ids=' + item.id + '&'
+            })
+            this.deleteRequest('/system/basic/joblevel/' + ids).then((resp) => {
+              if (resp) {
+                this.initJls()
+              }
+            })
           })
-          this.deleteRequest('/system/basic/joblevel/' + ids).then((resp) => {
-            if (resp) {
-              this.initJls()
-            }
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除',
+            })
           })
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除',
-          })
-        })
-    }
+    },
+    handleSizeChange(val) {
+      this.size = val
+      this.initJls()
+    },
+    handleCurrentChange(val) {
+      this.current = val
+      this.initJls()
+    },
   },
 }
 </script>

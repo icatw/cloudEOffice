@@ -30,17 +30,26 @@ public class JoblevelController {
     @Resource
     private JoblevelService joblevelService;
 
+    ///**
+    // * 分页查询所有数据
+    // */
+    //@ApiOperation(value = "分页查询所有数据 ")
+    //@GetMapping
+    //public R page(@RequestParam(defaultValue = "1") int current,
+    //              @RequestParam(defaultValue = "10") int size) {
+    //    Page<Joblevel> page = new Page<>(current, size);
+    //    return R.ok(this.joblevelService.page(page));
+    //}
+
     /**
      * 分页查询所有数据
      */
     @ApiOperation(value = "分页查询所有数据 ")
-    @GetMapping
-    public R page(@RequestParam(defaultValue = "1") int current,
-                  @RequestParam(defaultValue = "10") int size) {
-        Page<Joblevel> page = new Page<>(current, size);
-        return R.ok(this.joblevelService.page(page));
+    @GetMapping("/{current}/{size}")
+    public R page(@PathVariable int current, @PathVariable int size) {
+        Page<Joblevel> getPage = new Page<>(current, size);
+        return R.ok(this.joblevelService.page(getPage));
     }
-
 
     /**
      * 通过主键查询单条数据
@@ -78,18 +87,18 @@ public class JoblevelController {
 
     @ApiOperation(value = "删除职称")
     @DeleteMapping("/{id}")
-    public R deleteJobLevel(@PathVariable Integer id){
-        if (joblevelService.removeById(id)){
-            return R.ok("删除成功","");
+    public R deleteJobLevel(@PathVariable Integer id) {
+        if (joblevelService.removeById(id)) {
+            return R.ok("删除成功", "");
         }
         return R.fail("删除失败");
     }
 
     @ApiOperation(value = "批量删除职称")
     @DeleteMapping("/")
-    public R deleteJoblevelByIds(Integer[] ids){
-        if (joblevelService.removeByIds(Arrays.asList(ids))){
-            return R.ok("删除成功","");
+    public R deleteJoblevelByIds(Integer[] ids) {
+        if (joblevelService.removeByIds(Arrays.asList(ids))) {
+            return R.ok("删除成功", "");
         }
         return R.fail("删除失败");
     }

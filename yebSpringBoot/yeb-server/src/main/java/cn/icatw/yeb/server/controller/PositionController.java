@@ -37,7 +37,8 @@ public class PositionController {
      */
     @ApiOperation(value = "分页查询所有数据 ")
     @GetMapping
-    public R page(@RequestParam(defaultValue = "1") int current, @RequestParam(defaultValue = "10") int size) {
+    public R page(@RequestParam(defaultValue = "1") int current,
+                  @RequestParam(defaultValue = "10") int size) {
         Page<Position> page = new Page<>(current, size);
         return R.ok(this.positionService.page(page));
     }

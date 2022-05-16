@@ -16,6 +16,14 @@
           @click="addPisitions">
         添加
       </el-button>
+      <el-button
+          size="small"
+          style="margin-top: 8px"
+          type="danger"
+          :disabled="this.multipleSelection.length == 0"
+          @click="deleteMany">
+        批量删除
+      </el-button>
     </div>
     <div class="posManaMain">
       <el-table
@@ -24,8 +32,8 @@
           stripe
           border
           style="width: 49%">
-          @selection-change="handleSelectionChange"
-      >
+        @selection-change="handleSelectionChange"
+        >
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="id" label="编号" width="55"></el-table-column>
         <el-table-column prop="name" label="职位" width="120">
@@ -56,15 +64,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-button
-        size="small"
-        style="margin-top: 8px"
-        type="danger"
-        :disabled="this.multipleSelection.length == 0"
-        @click="deleteMany"
-    >批量删除
-    </el-button
-    >
+
     <el-dialog title="编辑职位" :visible.sync="dialogVisible" width="30%">
       <table>
         <tr>
@@ -144,19 +144,19 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       })
-        .then(() => {
-          this.deleteRequest('/system/basic/pos/' + data.id).then((resp) => {
-            if (resp) {
-              this.initPositions()
-            }
+          .then(() => {
+            this.deleteRequest('/system/basic/pos/' + data.id).then((resp) => {
+              if (resp) {
+                this.initPositions()
+              }
+            })
           })
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除',
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除',
+            })
           })
-        })
     },
     addPisitions() {
       if (this.pos.name) {
