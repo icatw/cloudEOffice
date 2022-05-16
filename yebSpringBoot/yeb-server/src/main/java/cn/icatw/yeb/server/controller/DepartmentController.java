@@ -18,7 +18,7 @@ import java.util.List;
  * @author icatw
  * @since 2022-05-11 16:38:34
  */
-@Api(tags = "部门")
+@Api(tags = "部门模块")
 @RestController
 @RequestMapping("/system/basic/department")
 public class DepartmentController {

@@ -20,7 +20,7 @@ import java.util.List;
  * @author icatw
  * @since 2022-05-11 16:38:32
  */
-@Api(tags = "操作员")
+@Api(tags = "操作员模块")
 @RestController
 @RequestMapping("/system/admin")
 public class AdminController {

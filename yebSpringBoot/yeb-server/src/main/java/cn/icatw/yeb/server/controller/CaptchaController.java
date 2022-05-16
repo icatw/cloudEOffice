@@ -1,6 +1,7 @@
 package cn.icatw.yeb.server.controller;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.io.IOException;
  */
 @Slf4j
 @RestController
+@Api(tags = "验证码模块")
 public class CaptchaController {
     @Autowired
     private DefaultKaptcha defaultKaptcha;

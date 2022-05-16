@@ -6,12 +6,13 @@ import cn.icatw.yeb.server.service.PositionService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * (Position)表控制层
@@ -19,9 +20,10 @@ import java.util.List;
  * @author icatw
  * @since 2022-05-11 16:38:40
  */
-@Api(tags = "(Position)")
+@Api(tags = "职位模块")
 @RestController
 @RequestMapping("/system/basic/pos")
+@Slf4j
 public class PositionController {
 
     /**
@@ -70,22 +72,27 @@ public class PositionController {
     @PutMapping
     public R updateById(@RequestBody Position position) {
         if (this.positionService.updateById(position)) {
-            return R.ok("更新成功！","");
+            return R.ok("更新成功！", "");
         }
         return R.fail("更新失败！");
     }
 
-    /**
-     * 单条/批量删除数据
-     */
-    @ApiOperation(value = "单条/批量删除数据 ")
-    @DeleteMapping
-    public R delete(@RequestParam List<Long> id) {
-        //TODO 此处删除操作需要根据前端修改
-        if (this.positionService.removeByIds(id)){
-            return R.ok("删除成功！","");
+    @ApiOperation("删除职位信息")
+    @DeleteMapping("/{id}")
+    public R deletePosition(@PathVariable Integer id) {
+        if (positionService.removeById(id)) {
+            return R.ok("删除成功!", "");
         }
-        return R.fail("删除失败！");
+        return R.fail("删除失败!");
+    }
+
+    @ApiOperation("批量删除职位信息")
+    @DeleteMapping("/")
+    public R deletePositionsByIds(Integer[] ids) {
+        if (positionService.removeByIds(Arrays.asList(ids))) {
+            return R.ok("删除成功!", "");
+        }
+        return R.fail("删除失败!");
     }
 }
 

@@ -1,12 +1,11 @@
 package cn.icatw.yeb.server.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import cn.icatw.yeb.server.common.R;
 import cn.icatw.yeb.server.domain.MailLog;
 import cn.icatw.yeb.server.service.MailLogService;
-import cn.icatw.yeb.server.common.R;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +18,7 @@ import java.util.List;
  * @author icatw
  * @since 2022-05-11 16:38:38
  */
-@Api(tags = "(MailLog)")
+@Api(tags = "邮件日志模块")
 @RestController
 @RequestMapping("mailLog")
 public class MailLogController {

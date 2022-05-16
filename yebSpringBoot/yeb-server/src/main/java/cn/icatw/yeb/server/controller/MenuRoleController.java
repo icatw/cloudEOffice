@@ -1,12 +1,11 @@
 package cn.icatw.yeb.server.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import cn.icatw.yeb.server.common.R;
 import cn.icatw.yeb.server.domain.MenuRole;
 import cn.icatw.yeb.server.service.MenuRoleService;
-import cn.icatw.yeb.server.common.R;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +18,7 @@ import java.util.List;
  * @author icatw
  * @since 2022-05-11 16:38:39
  */
-@Api(tags = "(MenuRole)")
+@Api(tags = "菜单角色模块")
 @RestController
 @RequestMapping("menuRole")
 public class MenuRoleController {

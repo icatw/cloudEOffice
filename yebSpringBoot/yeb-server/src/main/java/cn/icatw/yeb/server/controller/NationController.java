@@ -1,12 +1,11 @@
 package cn.icatw.yeb.server.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import cn.icatw.yeb.server.common.R;
 import cn.icatw.yeb.server.domain.Nation;
 import cn.icatw.yeb.server.service.NationService;
-import cn.icatw.yeb.server.common.R;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +18,7 @@ import java.util.List;
  * @author icatw
  * @since 2022-05-11 16:38:39
  */
-@Api(tags = "(Nation)")
+@Api(tags = "民族模块")
 @RestController
 @RequestMapping("nation")
 public class NationController {

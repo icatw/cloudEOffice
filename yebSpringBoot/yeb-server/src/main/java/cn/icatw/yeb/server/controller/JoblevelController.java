@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 /**
  * (Joblevel)表控制层
@@ -19,7 +19,7 @@ import java.util.List;
  * @author icatw
  * @since 2022-05-11 16:38:37
  */
-@Api(tags = "职称")
+@Api(tags = "职称模块")
 @RestController
 @RequestMapping("/system/basic/joblevel")
 public class JoblevelController {
@@ -76,16 +76,22 @@ public class JoblevelController {
         return R.fail("修改失败！");
     }
 
-    /**
-     * 单条/批量删除数据
-     */
-    @ApiOperation(value = "单条/批量删除数据 ")
-    @DeleteMapping
-    public R delete(@RequestParam List<Long> id) {
-        if (this.joblevelService.removeByIds(id)) {
-            return R.ok("删除成功！", "");
+    @ApiOperation(value = "删除职称")
+    @DeleteMapping("/{id}")
+    public R deleteJobLevel(@PathVariable Integer id){
+        if (joblevelService.removeById(id)){
+            return R.ok("删除成功","");
         }
-        return R.fail("删除失败！");
+        return R.fail("删除失败");
+    }
+
+    @ApiOperation(value = "批量删除职称")
+    @DeleteMapping("/")
+    public R deleteJoblevelByIds(Integer[] ids){
+        if (joblevelService.removeByIds(Arrays.asList(ids))){
+            return R.ok("删除成功","");
+        }
+        return R.fail("删除失败");
     }
 }
 

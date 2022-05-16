@@ -21,7 +21,7 @@ import java.security.Principal;
  * @email 762188827@qq.com
  * @apiNote
  */
-@Api(tags = "LoginController")
+@Api(tags = "登陆模块")
 @RestController
 public class LoginController {
     @Autowired

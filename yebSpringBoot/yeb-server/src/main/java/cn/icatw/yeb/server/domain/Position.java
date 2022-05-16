@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-@EqualsAndHashCode(callSuper = false,of = "name")
+@EqualsAndHashCode(callSuper = false, of = "name")
 @ApiModel("Position")
 public class Position implements Serializable {
     private static final long serialVersionUID = -15118307803104487L;

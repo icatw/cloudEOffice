@@ -18,7 +18,7 @@ import java.util.List;
  * @author icatw
  * @since 2022-05-11 16:38:38
  */
-@Api(tags = "(Menu)")
+@Api(tags = "菜单模块")
 @RestController
 @RequestMapping("/system/cfg")
 public class MenuController {

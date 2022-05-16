@@ -33,7 +33,7 @@ import java.util.List;
  * @author icatw
  * @since 2022-05-11 16:38:35
  */
-@Api(tags = "员工")
+@Api(tags = "员工模块")
 @RestController
 @RequestMapping("/employee/basic")
 public class EmployeeController {

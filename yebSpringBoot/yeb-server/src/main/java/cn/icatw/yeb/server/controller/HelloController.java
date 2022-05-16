@@ -1,5 +1,6 @@
 package cn.icatw.yeb.server.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2022/05/12
  */
 @RestController
+@Api(tags = "测试模块")
 public class HelloController {
     @PostMapping("/hello")
     public String hello() {

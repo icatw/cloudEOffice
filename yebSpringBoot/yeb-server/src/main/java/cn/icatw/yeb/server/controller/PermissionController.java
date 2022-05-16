@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * @email 762188827@qq.com
  * @apiNote
  */
-@Api(tags = "权限组")
+@Api(tags = "权限组模块")
 @RestController
 @RequestMapping("/system/basic/permiss")
 public class PermissionController {

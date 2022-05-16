@@ -10,7 +10,7 @@
       ></el-input>
       <el-select
         size="small"
-        v-model="jl.titleLevel"
+        v-model="jl.titlelevel"
         placeholder="职称等级"
         style="margin-left: 6px; margin-right: 6px"
       >
@@ -33,7 +33,6 @@
     <div style="margin-top: 10px">
       <el-table
         :data="jls"
-        style="width: 70%"
         size="small"
         border
         @selection-change="handleSelectionChange"
@@ -42,9 +41,9 @@
         <el-table-column prop="id" label="编号" width="55"> </el-table-column>
         <el-table-column prop="name" label="职称名称" width="150">
         </el-table-column>
-        <el-table-column prop="titleLevel" label="职称等级" width="150">
+        <el-table-column prop="titlelevel" label="职称等级" width="150">
         </el-table-column>
-        <el-table-column prop="createDate" label="创建日期" width="150">
+        <el-table-column prop="createdate" label="创建日期" width="150">
         </el-table-column>
         <el-table-column prop="enabled" label="是否启用" width="150">
           <template slot-scope="scope">
@@ -52,7 +51,7 @@
             <el-tag v-else type="danger">未启用</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作"
+        <el-table-column label="操作" width="150px"
           ><template slot-scope="scope">
             <el-button
               size="small"
@@ -95,7 +94,7 @@
           <td>
             <el-select
               size="small"
-              v-model="updateJl.titleLevel"
+              v-model="updateJl.titlelevel"
               placeholder="职称等级"
               style="margin-left: 6px; margin-right: 6px"
             >
@@ -141,14 +140,14 @@ export default {
     return {
       jl: {
         name: '',
-        titleLevel: '',
+        titlelevel: '',
       },
       titleLevels: ['正高级', '副高级', '中级', '初级', '员级'],
       jls: [],
       dialogVisible: false,
       updateJl: {
         name: '',
-        titleLevel: '',
+        titlelevel: '',
         enabled: false,
       },
       multipleSelection: [],
@@ -164,12 +163,12 @@ export default {
           console.log(resp)
           this.jls = resp.data.records
           this.jl.name = ''
-          this.jl.titleLevel = ''
+          this.jl.titlelevel = ''
         }
       })
     },
     addJobLevel() {
-      if (this.jl.name && this.jl.titleLevel) {
+      if (this.jl.name && this.jl.titlelevel) {
         this.postRequest('/system/basic/joblevel/', this.jl).then((resp) => {
           if (resp) {
             this.initJls()
