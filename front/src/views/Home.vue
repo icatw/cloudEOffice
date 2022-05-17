@@ -102,7 +102,7 @@ export default {
             // 清空菜单
             this.$store.commit('initRoutes', [])
             // 跳转到登录页面
-            this.$router.replace('/')
+            this.$router.push('/')
           })
           .catch(() => {
             this.$message({

@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-header class="homeHeader">
-        <div class="title">云e办</div>
+        <div class="title" @click="$router.push('/home')">云e办</div>
         <el-dropdown class="userInfo" @command="commandHandler">
           <span class="el-dropdown-link">
             {{ user.name }}<i><img :src="user.userface"></i>

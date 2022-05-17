@@ -87,10 +87,11 @@ export default {
               // 存储用户token
               const tokenStr = resp.data.tokenHead + resp.data.token
               window.sessionStorage.setItem('tokenStr', tokenStr)
-              let path = this.$route.query.redirect
-              this.$router.replace(
-                path == '/' || path == undefined ? '/home' : path
-              )
+              this.$router.push('/home')
+              // let path = this.$route.query.redirect
+              // this.$router.replace(
+              //   path == '/' || path == undefined ? '/home' : path
+              // )
             }
             if (resp == undefined) {
               this.loading = false

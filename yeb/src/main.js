@@ -27,7 +27,7 @@ router.beforeEach(((to, from, next) => {
             return getRequest('/admin/info').then(resp => {
                 if (resp) {
                     window.sessionStorage.setItem('user', JSON.stringify(resp))
-                    next()
+                    next('/home')
                 }
             })
         }
@@ -37,7 +37,8 @@ router.beforeEach(((to, from, next) => {
             next()
         } else {
             //如果没有登录，重定向
-            next('?/redirect=' + to.path)
+            ElementUI.Message.error('请先登录！')
+            next('/')
         }
     }
 
