@@ -66,10 +66,11 @@ export default {
               const tokenStr = resp.data.tokenHead + resp.data.token
               window.sessionStorage.setItem('tokenStr', tokenStr)
               //跳转首页
-              let path = this.$route.query.redirect
-              this.$router.replace(
-                  path == '/' || path == undefined ? '/home' : path
-              )
+              this.$router.replace('/home')
+              // let path = this.$route.query.redirect
+              // this.$router.replace(
+              //     path == '/' || path == undefined ? '/home' : path
+              // )
           }
         }
       )

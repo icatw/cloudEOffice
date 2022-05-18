@@ -80,7 +80,7 @@ export default {
       dialogVisible: false,
       dep: {
         name: '',
-        parentId: -1,
+        parentid: -1,
       },
       pname: '',
     }
@@ -98,12 +98,12 @@ export default {
       })
     },
     showAddDep(data) {
-      this.dep.parentId = data.id
+      this.dep.parentid = data.id
       this.pname = data.name
       this.dialogVisible = true
     },
     deleteDep(data) {
-      if (data.isParent) {
+      if (data.parent) {
         this.$message.error('父部门删除失败')
       } else {
         this.$confirm(
@@ -135,7 +135,7 @@ export default {
     doAddDep() {
       this.postRequest('/system/basic/department/', this.dep).then((resp) => {
         if (resp) {
-          this.addDepToDeps(this.deps, resp.obj)
+          this.addDepToDeps(this.deps, resp.data)
           this.dialogVisible = false
           this.initDep()
         }
@@ -144,20 +144,20 @@ export default {
     initDep() {
       this.dep = {
         name: '',
-        parentId: -1,
+        parentid: -1,
       }
       this.pname = ''
     },
     addDepToDeps(deps, dep) {
       for (let i = 0; i < deps.length; i++) {
         let d = deps[i]
-        if (d.id == dep.parentId) {
+        if (d.id == dep.parentid) {
           if (d.children == null) {
             d.children = []
           } //因为会报错是null
           d.children = d.children.concat(dep)
           if (d.children.length > 0) {
-            d.isParent = true
+            d.parent = true
           }
           return
         } else {
@@ -171,7 +171,7 @@ export default {
         if (d.id == id) {
           deps.splice(i, 1)
           if (deps.length == 0) {
-            p.isParent = false
+            p.parent = false
           }
           return
         } else {

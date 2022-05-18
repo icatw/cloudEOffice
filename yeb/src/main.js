@@ -12,7 +12,7 @@ import {initMenu} from "./utils/menus";
 import 'font-awesome/css/font-awesome.css'
 
 Vue.config.productionTip = false
-Vue.use(ElementUI);
+Vue.use(ElementUI, {size: 'small'});
 //插件形式发送请求
 Vue.prototype.postRequest = postRequest;
 Vue.prototype.getRequest = getRequest;

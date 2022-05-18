@@ -73,8 +73,7 @@ public class PermissionController {
     public List<Integer> getMidByRid(@PathVariable Integer rid) {
         List<MenuRole> menuRoleList = menuRoleService.list(new QueryWrapper<MenuRole>().eq("rid", rid));
         //stream流转为id菜单
-        List<Integer> list = menuRoleList.stream().map(MenuRole::getMid).collect(Collectors.toList());
-        return list;
+        return menuRoleList.stream().map(MenuRole::getMid).collect(Collectors.toList());
     }
 
     @ApiOperation(value = "更新角色菜单")
