@@ -129,7 +129,7 @@ public class EmployeeController {
     @PutMapping
     public R updateById(@RequestBody Employee employee) {
         if (this.employeeService.updateById(employee)) {
-            return R.ok("更新成功！");
+            return R.ok("更新成功！", "");
         }
         return R.fail("更新失败！");
 

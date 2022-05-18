@@ -46,21 +46,25 @@
         </el-aside>
 
         <el-main>
-          <!--          折叠菜单-->
-          <el-button :icon="isCollapse?unfold:fold"
-                     size="small"
-                     style="color: #989fa7;margin-bottom: 5px;padding: 8px"
-                     @click="foldMenu"></el-button>
-          <!--          面包屑导航-->
-          <el-breadcrumb
-              separator-class="el-icon-arrow-right"
-              v-if="this.$router.currentRoute.path != '/home'">
-            <el-breadcrumb-item :to="{ path: '/home' }">首页
-            </el-breadcrumb-item>
-            <el-breadcrumb-item>
-              {{ this.$router.currentRoute.name }}
-            </el-breadcrumb-item>
-          </el-breadcrumb>
+          <div>
+            <!--          折叠菜单-->
+            <el-button :icon="isCollapse?unfold:fold"
+                       size="small"
+                       style="color: #989fa7;margin-bottom: 5px;padding: 8px"
+                       @click="foldMenu">
+            </el-button>
+            <!--          面包屑导航-->
+            <el-breadcrumb
+                separator-class="el-icon-arrow-right"
+                v-if="this.$router.currentRoute.path != '/home'">
+              <el-breadcrumb-item :to="{ path: '/home' }">首页
+              </el-breadcrumb-item>
+              <el-breadcrumb-item>
+                {{ this.$router.currentRoute.name }}
+              </el-breadcrumb-item>
+            </el-breadcrumb>
+          </div>
+
           <div class="homeWelcome"
                v-if="this.$router.currentRoute.path == '/home'">
             欢迎来到云E办系统
