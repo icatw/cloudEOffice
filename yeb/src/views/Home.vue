@@ -50,7 +50,7 @@
             <!--          折叠菜单-->
             <el-button :icon="isCollapse?unfold:fold"
                        size="small"
-                       style="color: #989fa7;float:left;margin-bottom: 5px;padding: 8px"
+                       style="color: #989fa7;float:left;margin-top:-8px;margin-right:6px;margin-bottom: 5px;padding: 8px"
                        @click="foldMenu">
             </el-button>
             <!--          面包屑导航-->
