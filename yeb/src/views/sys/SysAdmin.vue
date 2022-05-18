@@ -28,7 +28,7 @@
         <div>
           <div class="img-container">
             <img
-              :src="admin.userFace"
+              :src="admin.userface"
               :alt="admin.name"
               :title="admin.name"
               class="userface-img"
@@ -39,7 +39,7 @@
         <div class="userInfo-container">
           <div>用户名:{{ admin.name }}</div>
           <div>手机号码:{{ admin.phone }}</div>
-          <div>电话号码:{{ admin.tekephone }}</div>
+          <div>电话号码:{{ admin.telephone }}</div>
           <div>地址:{{ admin.address }}</div>
           <div>
             用户状态:
@@ -60,7 +60,7 @@
               type="success"
               v-for="(role, indexj) in admin.roles"
               :key="indexj"
-              >{{ role.nameZh }}</el-tag
+              >{{ role.namezh }}</el-tag
             >
             <el-popover
               placement="right"
@@ -74,7 +74,7 @@
                 <el-option
                   v-for="(r, index) in allRoles"
                   :key="index"
-                  :label="r.nameZh"
+                  :label="r.namezh"
                   :value="r.id"
                 >
                 </el-option>
