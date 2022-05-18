@@ -27,14 +27,8 @@
               @click="showAdvanceSearchVisible = !showAdvanceSearchVisible"
           >
             <!-- fa fa-angle-double-down -->
-            <i
-                :class="
-                showAdvanceSearchVisible
-                  ? 'fa fa-angle-double-up'
-                  : 'fa fa-angle-double-down'
-              "
-                aria-hidden="true"
-            ></i>
+            <i :class="showAdvanceSearchVisible? 'fa fa-angle-double-up': 'fa fa-angle-double-down' "
+               aria-hidden="true"></i>
             高级搜索
           </el-button
           >

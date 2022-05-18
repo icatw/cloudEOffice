@@ -210,23 +210,23 @@
         <if test="null!=employee.name and ''!=employee.name">
             AND e.name like concat('%',#{employee.name},'%')
         </if>
-        <if test="null!=employee.politicId">
-            AND e.politicId = #{employee.politicId}
+        <if test="null!=employee.politicid">
+            AND e.politicId = #{employee.politicid}
         </if>
-        <if test="null!=employee.nationId">
-            AND e.nationId = #{employee.nationId}
+        <if test="null!=employee.nationid">
+            AND e.nationId = #{employee.nationid}
         </if>
-        <if test="null!=employee.jobLevelId">
-            AND e.jobLevelId = #{employee.jobLevelId}
+        <if test="null!=employee.joblevelid">
+            AND e.jobLevelId = #{employee.joblevelid}
         </if>
-        <if test="null!=employee.posId">
-            AND e.posId = #{employee.posId}
+        <if test="null!=employee.posid">
+            AND e.posId = #{employee.posid}
         </if>
-        <if test="null!=employee.departmentId">
-            AND e.departmentId = #{employee.departmentId}
+        <if test="null!=employee.departmentid">
+            AND e.departmentId = #{employee.departmentid}
         </if>
-        <if test="null!=employee.engageForm and ''!=employee.engageForm">
-            AND e.engageForm = #{employee.engageForm}
+        <if test="null!=employee.engageform and ''!=employee.engageform">
+            AND e.engageForm = #{employee.engageform}
         </if>
         <if test="null!=beginDateScope and 2==beginDateScope.length">
             AND e.beginDate between #{beginDateScope[0]} and #

@@ -63,8 +63,6 @@ public class EmployeeController {
                              @RequestParam(defaultValue = "10") int size,
                              Employee employee, LocalDate[] beginDateScope) {
         return employeeService.getEmployeeByPage(current, size, employee, beginDateScope);
-        //Page<Employee> page = new Page<>(current, size);
-        //return R.ok(this.employeeService.page(page));
     }
 
 
