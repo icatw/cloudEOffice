@@ -1017,7 +1017,7 @@ export default {
         workid: '',
         contractterm: null,
         conversiontime: '',
-        notWorkdate: null,
+        notworkdate: null,
         begincontract: '',
         endcontract: '',
         workage: '',
@@ -1087,9 +1087,9 @@ export default {
       })
     },
     getMaxworkid() {
-      this.getRequest('/employee/basic/maxworkid').then((resp) => {
+      this.getRequest('/employee/basic/maxWorkID').then((resp) => {
         if (resp) {
-          this.emp.workid = resp.obj
+          this.emp.workid = resp.data
         }
       })
     },
