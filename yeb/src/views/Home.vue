@@ -3,16 +3,22 @@
     <el-container>
       <el-header class="homeHeader">
         <div class="title" @click="$router.push('/home')">云e办</div>
-        <el-dropdown class="userInfo" @command="commandHandler">
+
+        <div class ="right" style ="float:right;">
+        <el-dropdown style="float:left; margin-right: 40px;" class="userInfo" @command="commandHandler">
           <span class="el-dropdown-link">
             {{ user.name }}<i><img :src="user.userface"></i>
           </span>
+
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="userInfo">个人中心</el-dropdown-item>
             <el-dropdown-item command="setting">设置</el-dropdown-item>
             <el-dropdown-item command="logout">注销登陆</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
+        <el-link style="margin-right: 28px; line-height:50px;" href="http://www.icatw.top" target="_blank">icatwの博客</el-link>
+        <el-link href="https://gitee.com/icatw" target="_blank">Gitee</el-link>
+        </div>
       </el-header>
       <el-container>
 
