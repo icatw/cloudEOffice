@@ -4,21 +4,41 @@
       <el-header class="homeHeader">
         <div class="title" @click="$router.push('/home')">云e办</div>
 
-        <div class ="right" style ="float:right;">
-        <el-dropdown style="float:left; margin-right: 40px;" class="userInfo" @command="commandHandler">
-          <span class="el-dropdown-link">
-            {{ user.name }}<i><img :src="user.userface"></i>
-          </span>
-
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="userInfo">个人中心</el-dropdown-item>
-            <el-dropdown-item command="setting">设置</el-dropdown-item>
-            <el-dropdown-item command="logout">注销登陆</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <el-link style="margin-right: 28px; line-height:50px;" href="http://www.icatw.top" target="_blank">icatwの博客</el-link>
-        <el-link href="https://gitee.com/icatw" target="_blank">Gitee</el-link>
+        <div class="header-avatar">
+          <el-avatar size="medium"
+                     :src="user.userface"></el-avatar>
+          <el-dropdown>
+            <span class="el-dropdown-link">
+            {{ user.name }}<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="userInfo">个人中心</el-dropdown-item>
+              <el-dropdown-item command="setting">设置</el-dropdown-item>
+              <el-dropdown-item command="logout">注销登陆</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <el-link href="http://www.icatw.top" target="_blank">icatwの博客</el-link>
+          <el-link href="https://gitee.com/icatw" target="_blank">Gitee</el-link>
         </div>
+
+
+        <!--        <div class="right" style="float:right;">-->
+        <!--          <el-dropdown style="float:left; margin-right: 40px;" class="userInfo" @command="commandHandler">-->
+        <!--          <span class="el-dropdown-link">-->
+        <!--            {{ user.name }}<i><img :src="user.userface"></i>-->
+        <!--          </span>-->
+
+        <!--            <el-dropdown-menu slot="dropdown">-->
+        <!--              <el-dropdown-item command="userInfo">个人中心</el-dropdown-item>-->
+        <!--              <el-dropdown-item command="setting">设置</el-dropdown-item>-->
+        <!--              <el-dropdown-item command="logout">注销登陆</el-dropdown-item>-->
+        <!--            </el-dropdown-menu>-->
+        <!--          </el-dropdown>-->
+        <!--          <el-link style="margin-right: 28px; line-height:50px;" href="http://www.icatw.top" target="_blank">icatwの博客-->
+        <!--          </el-link>-->
+        <!--          <el-link href="https://gitee.com/icatw" target="_blank">Gitee</el-link>-->
+        <!--        </div>-->
+        <!--        -->
       </el-header>
       <el-container>
 
@@ -139,6 +159,14 @@ export default {
 </script>
 
 <style>
+.header-avatar {
+  float: right;
+  width: 250px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .homeHeader {
   background: #409eff;
   display: flex;
@@ -175,5 +203,10 @@ export default {
 
 .homeRouterView {
   margin-top: 10px;
+}
+
+.el-dropdown-link {
+  cursor: pointer;
+  color: #192121;
 }
 </style>
