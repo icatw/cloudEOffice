@@ -5,9 +5,10 @@
         <div class="title" @click="$router.push('/home')">云e办</div>
 
         <div class="header-avatar">
+          <el-button icon="el-icon-bell" type="text" size="normal" style="color: #2e3238;margin-right: 8px" @click="toChat()"></el-button>
           <el-avatar size="medium"
                      :src="user.userface"></el-avatar>
-          <el-dropdown>
+          <el-dropdown @command="commandHandler">
             <span class="el-dropdown-link">
             {{ user.name }}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
@@ -123,6 +124,9 @@ export default {
     }
   },
   methods: {
+    toChat(){
+      this.$router.push('/chat')
+    },
     foldMenu() {
       this.isCollapse = !this.isCollapse
     },
@@ -161,7 +165,7 @@ export default {
 <style>
 .header-avatar {
   float: right;
-  width: 250px;
+  width: 300px;
   display: flex;
   justify-content: space-around;
   align-items: center;
