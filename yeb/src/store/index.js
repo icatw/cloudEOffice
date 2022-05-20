@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import {getRequest} from "../utils/api";
 import SockJS from 'sockjs-client'
 import Stomp from 'stompjs'
+import {Notification} from 'element-ui';
 
 Vue.use(Vuex)
 const now = new Date();
@@ -15,7 +16,8 @@ const store = new Vuex.Store({
         currentSession: null,
         filterKey: '',
         currentAdmin: JSON.parse(window.sessionStorage.getItem('user')),
-        stomp: null
+        stomp: null,
+        idDot: {}
     },
     mutations: {
         initRoutes(state, data) {
@@ -23,6 +25,7 @@ const store = new Vuex.Store({
         },
         changeCurrentSession(state, currentSession) {
             state.currentSession = currentSession;
+            Vue.set(state.idDot, state.currentAdmin.username + '#' + state.currentSession.username, false)
         },
         addMessage(state, msg) {
             let mss = state.sessions[state.currentAdmin.username + '#' + msg.to]

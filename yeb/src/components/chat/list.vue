@@ -4,7 +4,8 @@
       <li v-for="item in admins" :class="{ active: currentSession?item.username === currentSession.username:false }"
           v-on:click="changeCurrentSession(item)"><!--   :class="[item.id === currentSession ? 'active':'']" -->
         <img class="avatar" :src="item.userface" :alt="item.name">
-        <p class="name">{{ item.name }}</p>
+        <el-badge :is-dot="idDot[user.username+'#'+item.username]" class="item"><p class="name">{{ item.name }}</p>
+        </el-badge>
       </li>
     </ul>
   </div>
@@ -16,11 +17,14 @@ import {mapState} from 'vuex'
 export default {
   name: 'list',
   data() {
-    return {}
+    return {
+      user: JSON.parse(window.sessionStorage.getItem('user')),
+    }
   },
   computed: mapState([
     'admins',
-    'currentSession'
+    'currentSession',
+    'idDot'
   ]),
   methods: {
     changeCurrentSession: function (currentSession) {
@@ -33,7 +37,7 @@ export default {
 <style lang="scss" scoped>
 #list {
   li {
-    padding: 0px 15px;
+    padding: 15px 15px;
     border-bottom: 1px solid #292C33;
     cursor: pointer;
 
@@ -56,6 +60,8 @@ export default {
   .name {
     display: inline-block;
     margin-left: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
 }
 </style>
