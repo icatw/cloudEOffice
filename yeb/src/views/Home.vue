@@ -112,7 +112,7 @@ export default {
   data() {
     return {
       //将字符串转为对象
-      user: JSON.parse(window.sessionStorage.getItem('user')),
+      // user: JSON.parse(window.sessionStorage.getItem('user')),
       isCollapse: true,
       //  true折叠，false打开
       unfold: 'el-icon-s-unfold',
@@ -122,6 +122,9 @@ export default {
   computed: {
     routes() {
       return this.$store.state.routes;
+    },
+    user() {
+      return this.$store.state.currentAdmin
     }
   },
   methods: {

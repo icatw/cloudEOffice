@@ -7,9 +7,8 @@
       <div>
         <div style="display: flex; justify-content: center">
           <el-upload
-              action="/admin/userface"
+              action="/upload"
               :headers="headers"
-              :data="admin"
               :on-success="onSuccess"
               :show-file-list="false"
           >
@@ -63,25 +62,25 @@
           <tr>
             <td>用户昵称</td>
             <td>
-              <el-input v-model="admin2.name"></el-input>
+              <el-input v-model="admin.name"></el-input>
             </td>
           </tr>
           <tr>
             <td>电话号码</td>
             <td>
-              <el-input v-model="admin2.telephone"></el-input>
+              <el-input v-model="admin.telephone"></el-input>
             </td>
           </tr>
           <tr>
             <td>手机号码</td>
             <td>
-              <el-input v-model="admin2.phone"></el-input>
+              <el-input v-model="admin.phone"></el-input>
             </td>
           </tr>
           <tr>
             <td>用户地址</td>
             <td>
-              <el-input v-model="admin2.address"></el-input>
+              <el-input v-model="admin.address"></el-input>
             </td>
           </tr>
         </table>
@@ -168,8 +167,7 @@ export default {
       headers: {
         Authorization: window.sessionStorage.getItem('tokenStr'),
       },
-      admin: null,
-      admin2: null,
+      admin: {},
       dialogVisible: false,
       passwordDialogVisible: false,
       ruleForm: {
@@ -189,7 +187,6 @@ export default {
       this.getRequest('/admin/info').then((resp) => {
         if (resp) {
           this.admin = resp
-          this.admin2 = Object.assign({}, this.admin)
           window.sessionStorage.setItem('user', JSON.stringify(resp))
           this.$store.commit('INIT_ADMIN', resp)
         }
@@ -199,10 +196,11 @@ export default {
       this.dialogVisible = true
     },
     updateAdminInfo() {
-      this.putRequest('/admin/info', this.admin2).then((resp) => {
+      this.putRequest('/admin/info', this.admin).then((resp) => {
         if (resp) {
           this.dialogVisible = false
           this.initAdmin()
+          location.reload()
         }
       })
     },
@@ -232,8 +230,14 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
-    onSuccess() {
-      this.initAdmin()
+    onSuccess(response) {
+      console.log(response)
+      if (response.code == 200) {
+        this.$message.success("头像上传成功！");
+        this.admin.userface = response.data
+      } else {
+        this.$message.error(response.msg);
+      }
     },
 
     handleClose(done) {

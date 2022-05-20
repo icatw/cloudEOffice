@@ -20,6 +20,10 @@ const store = new Vuex.Store({
         idDot: {}
     },
     mutations: {
+        INIT_ADMIN(state, admin) {
+            console.log(admin)
+            state.currentAdmin = admin
+        },
         initRoutes(state, data) {
             state.routes = data
         },
