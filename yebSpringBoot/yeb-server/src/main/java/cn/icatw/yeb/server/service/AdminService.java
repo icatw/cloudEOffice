@@ -58,5 +58,15 @@ public interface AdminService extends IService<Admin> {
      * @return {@link R}
      */
     R updateAdminRole(Integer adminId, Integer[] rids);
+
+    /**
+     * 更新密码
+     *
+     * @param oldPass 古老传递
+     * @param pass    通过
+     * @param adminId 管理员id
+     * @return {@link R}
+     */
+    R updatePassword(String oldPass, String pass, Integer adminId);
 }
 

@@ -20,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -108,6 +109,20 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
             return R.ok("更新成功!", "");
         }
         return R.fail("更新失败!");
+    }
+
+    @Override
+    public R updatePassword(String oldPass, String pass, Integer adminId) {
+        Admin admin = this.baseMapper.selectById(adminId);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (encoder.matches(oldPass, admin.getPassword())) {
+            admin.setPassword(encoder.encode(pass));
+            int result = this.baseMapper.updateById(admin);
+            if (1 == result) {
+                return R.ok("密码修改成功，请重新登录!", "");
+            }
+        }
+        return R.fail("密码修改失败，请检查旧密码!");
     }
 }
 
