@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,6 +50,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     RoleMapper roleMapper;
     @Autowired
     AdminRoleMapper adminRoleMapper;
+    @Autowired
+    RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public R login(AdminLoginParam adminLoginParam, HttpServletRequest request) {
@@ -104,6 +107,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     public R updateAdminRole(Integer adminId, Integer[] rids) {
         //同样，先删除后新增，相当于选择了哪些角色就修改为哪些角色
         adminRoleMapper.delete(new QueryWrapper<AdminRole>().eq("adminId", adminId));
+        //更新管理员角色应该删除redis缓存菜单信息
+        redisTemplate.opsForHash().delete("menu_" + adminId);
         Integer result = adminRoleMapper.addRole(adminId, rids);
         if (rids.length == result) {
             return R.ok("更新成功!", "");
