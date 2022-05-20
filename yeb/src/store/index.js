@@ -11,23 +11,29 @@ const store = new Vuex.Store({
     state: {
         routes: [],
         admins: [],
-        sessions: [],
-        currentSessionId: -1,
+        sessions: {},
+        currentSession: null,
         filterKey: '',
+        currentAdmin: JSON.parse(window.sessionStorage.getItem('user')),
         stomp: null
     },
     mutations: {
         initRoutes(state, data) {
             state.routes = data
         },
-        changeCurrentSessionId(state, id) {
-            state.currentSessionId = id;
+        changeCurrentSession(state, currentSession) {
+            state.currentSession = currentSession;
         },
         addMessage(state, msg) {
-            state.sessions[state.currentSessionId - 1].messages.push({
-                content: msg,
+            let mss = state.sessions[state.currentAdmin.username + '#' + msg.to]
+            if (!mss) {
+                // state.sessions[state.currentAdmin.username + '#' + msg.to] = []
+                Vue.set(state.sessions, state.currentAdmin.username + '#' + msg.to, [])
+            }
+            state.sessions[state.currentAdmin.username + '#' + msg.to].push({
+                content: msg.content,
                 date: new Date(),
-                self: true
+                self: !msg.notSelf
             })
         },
         INIT_DATA(state) {
@@ -49,7 +55,18 @@ const store = new Vuex.Store({
             console.log("token: ", token)
             context.state.stomp.connect({'Auth-Token': token}, success => {
                 context.state.stomp.subscribe('/user/queue/chat', msg => {
-                    console.log(msg.body)
+                    let receiveMsg = JSON.parse(msg.body)
+                    if (!context.state.currentSession || receiveMsg.from != context.state.currentSession.username) {
+                        Notification.info({
+                            title: '【' + receiveMsg.fromNickName + '】发来一条消息',
+                            message: receiveMsg.content.length > 10 ? receiveMsg.content.substr(0, 10) : receiveMsg.content,
+                            position: 'bottom-right'
+                        });
+                        Vue.set(context.state.idDot, context.state.currentAdmin.username + '#' + receiveMsg.from, true)
+                    }
+                    receiveMsg.notSelf = true
+                    receiveMsg.to = receiveMsg.from
+                    context.commit('addMessage', receiveMsg)
                 })
             }, error => {
 

@@ -10,7 +10,7 @@
         }"
         v-on:click="changeCurrentSession(item)"
       >
-        <!--   :class="[item.id === currentSessionId ? 'active':'']" -->
+        <!--   :class="[item.id === currentSession ? 'active':'']" -->
         <img class="avatar" :src="item.userFace" :alt="item.name" />
         <el-badge :is-dot="idDot[user.username + '#' + item.username]"
           ><p class="name">{{ item.name }}</p></el-badge
