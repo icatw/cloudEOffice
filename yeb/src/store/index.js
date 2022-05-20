@@ -38,11 +38,11 @@ const store = new Vuex.Store({
         },
         INIT_DATA(state) {
             //浏览器本地历史聊天记录
-            // let data = localStorage.getItem('vue-chat-session');
-            // //console.log(data)
-            // if (data) {
-            //     state.sessions = JSON.parse(data);
-            // }
+            let data = localStorage.getItem('vue-chat-session');
+            //console.log(data)
+            if (data) {
+                state.sessions = JSON.parse(data);
+            }
         },
         INIT_ADMINS(state, data) {
             state.admins = data
@@ -73,6 +73,7 @@ const store = new Vuex.Store({
             })
         },
         initData(context) {
+            context.commit('INIT_DATA')
             getRequest('/chat/admin').then(resp => {
                 if (resp) {
                     context.commit('INIT_ADMINS', resp)
