@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {getRequest} from "../utils/api";
+import SockJS from 'sockjs-client'
+import Stomp from 'stompjs'
 
 Vue.use(Vuex)
 const now = new Date();
@@ -9,35 +11,10 @@ const store = new Vuex.Store({
     state: {
         routes: [],
         admins: [],
-        sessions: [{
-            id: 1,
-            user: {
-                name: '示例介绍',
-                img: 'http://q2.qlogo.cn/headimg_dl?dst_uin=762188827&spec=100&v=0.7230825514475898'
-            },
-            messages: [{
-                content: 'Hello，这是一个基于Vue + Vuex + Webpack构建的简单chat示例，聊天记录保存在localStorge, 有什么问题可以通过Github Issue问我。',
-                date: now
-            }, {
-                content: '项目地址(原作者): https://github.com/coffcer/vue-chat',
-                date: now
-            }, {
-                content: '本项目地址(重构): https://github.com/is-liyiwei',
-                date: now
-            }]
-        }, {
-            id: 2,
-            user: {
-                name: 'webpack',
-                img: 'http://q2.qlogo.cn/headimg_dl?dst_uin=762188827&spec=100&v=0.7230825514475898'
-            },
-            messages: [{
-                content: 'Hi，我是webpack哦',
-                date: now
-            }]
-        }],
+        sessions: [],
         currentSessionId: -1,
-        filterKey: ''
+        filterKey: '',
+        stomp: null
     },
     mutations: {
         initRoutes(state, data) {
@@ -66,6 +43,18 @@ const store = new Vuex.Store({
         }
     },
     actions: {
+        connect(context) {
+            context.state.stomp = Stomp.over(new SockJS('/ws/ep'))
+            let token = window.sessionStorage.getItem('tokenStr')
+            console.log("token: ", token)
+            context.state.stomp.connect({'Auth-Token': token}, success => {
+                context.state.stomp.subscribe('/user/queue/chat', msg => {
+                    console.log(msg.body)
+                })
+            }, error => {
+
+            })
+        },
         initData(context) {
             getRequest('/chat/admin').then(resp => {
                 if (resp) {

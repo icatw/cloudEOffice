@@ -9,36 +9,41 @@ import {mapState} from 'vuex'
 
 export default {
   name: 'uesrtext',
-  data () {
+  data() {
     return {
-      content:''
+      content: ''
     }
   },
   methods: {
-  	addMessage (e) {
-  		if (e.ctrlKey && e.keyCode ===13 && this.content.length) {
-  			this.$store.commit('addMessage',this.content);
-  			this.content='';
-  		}
-  	}
+    addMessage(e) {
+      if (e.ctrlKey && e.keyCode === 13 && this.content.length) {
+        // this.$store.commit('addMessage',this.content);
+        // this.content='';
+        let msgObj = {}
+        msgObj.to = 'naqiao';
+        msgObj.content = this.content
+        this.$store.state.stomp.send('/ws/chat', {}, JSON.stringify(msgObj))
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 #uesrtext {
-	position: absolute;
+  position: absolute;
   bottom: 0;
   right: 0;
   width: 100%;
   height: 30%;
   border-top: solid 1px #DDD;
+
   > textarea {
-  	padding: 10px;
-  	width: 100%;
-  	height: 100%;
-  	border: none;
-  	outline: none;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
   }
 }
 </style>

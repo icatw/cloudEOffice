@@ -1,5 +1,5 @@
 <template>
-  <div id="message" v-scroll-bottom="session">
+  <div id="message" v-scroll-bottom="sessions">
     <ul v-if="currentSessionId==item.id" v-for="item in sessions">
       <li v-for="entry in item.messages">
         <p class="time">
