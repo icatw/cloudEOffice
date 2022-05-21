@@ -1,32 +1,35 @@
 <template>
-  <div>
-    <el-form ref="loginForm"
-             v-loading="loading"
-             element-loading-text="正在登陆...."
-             element-loading-spinner="el-icon-loading"
-             element-loading-background="rgba(0, 0, 0, 0.8)"
-             :rules="loginRules"
-             :model="loginForm"
-             class="loginContainer">
-      <h3 class="loginTitle">系统登陆</h3>
-      <el-form-item prop="username">
-        <el-input type="text" auto-complete="false" v-model="loginForm.username" placeholder="请输入用户名">
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input type="password" show-password auto-complete="false" v-model="loginForm.password" placeholder="请输入密码">
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="code">
-        <el-input type="text" auto-complete="false" v-model="loginForm.code" placeholder="点击图片更换验证码"
-                  style="width: 250px;margin-right:5px ">
-        </el-input>
-        <img :src="captchaUrl" @click="updateCaptcha">
-      </el-form-item>
-      <el-checkbox v-model="checked" class="loginRemember">记住我</el-checkbox>
-      <el-button type="primary" style="width: 100%" @click="submitLogin">登录</el-button>
-    </el-form>
-  </div>
+  <el-row type="flex" class="row-bg" justify="center">
+    <el-col :xl="6" :lg="7">
+      <h2>欢迎来到icatw-云e办系统</h2>
+      <el-image :src="require('../assets/icatw.jpg')" style="width: 200px;height: 200px"></el-image>
+      <p>
+        <el-link type="primary" href="https://gitee.com/icatw/cloudEOffice">Gitee地址</el-link>
+      </p>
+      <p>联系方式：762188827@qq.com</p>
+    </el-col>
+    <el-col :span="1">
+      <el-divider direction="vertical"></el-divider>
+    </el-col>
+    <el-col :xl="6" :lg="7">
+      <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="100px" class="demo-loginForm">
+        <el-form-item label="用户名" prop="username" style="width: 380px">
+          <el-input v-model="loginForm.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password" style="width: 380px">
+          <el-input type="password" show-password v-model="loginForm.password"></el-input>
+        </el-form-item>
+        <el-form-item label="验证码" prop="code" style="width: 380px">
+          <el-input v-model="loginForm.code" style="width:172px;float: left"></el-input>
+          <el-image :src="captchaUrl" class="captchaImg" @click="updateCaptcha"></el-image>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitLogin('loginForm')">立即登录</el-button>
+          <el-button @click="resetForm('loginForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
@@ -35,20 +38,25 @@ export default {
   name: "Login",
   data() {
     return {
-      loading: false,
       loginForm: {
         username: 'admin',
         password: '123',
         code: ''
       },
       captchaUrl: '/captcha?time=' + new Date(),
-      checked: true,
-      loginRules: {
-        username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
-        password: [{required: true, message: '请输入密码', trigger: 'blur'}],
-        code: [{required: true, message: '请输入验证码', trigger: 'blur'}],
-      }
-    }
+      rules: {
+        username: [
+          {required: true, message: '请输入用户名', trigger: 'blur'}
+        ],
+        password: [
+          {required: true, message: '请输入密码', trigger: 'blur'}
+        ],
+        code: [
+          {required: true, message: '请输入验证码', trigger: 'blur'},
+          {min: 4, max: 4, message: '长度为4个字符', trigger: 'blur'}
+        ],
+      },
+    };
   },
   methods: {
     updateCaptcha() {
@@ -59,59 +67,47 @@ export default {
         if (valid) {
           this.loading = true
           this.postRequest('/login', this.loginForm).then(resp => {
-            console.log(JSON.stringify(resp))
-            this.loading = false
-            if (resp.code === 200) {
-              //存储用户token
-              const tokenStr = resp.data.tokenHead + resp.data.token
-              window.sessionStorage.setItem('tokenStr', tokenStr)
-              //跳转首页
-              this.$router.replace('/home')
-              // let path = this.$route.query.redirect
-              // this.$router.replace(
-              //     path == '/' || path == undefined ? '/home' : path
-              // )
-          }
+                this.loading = false
+                if (resp.code === 200) {
+                  //存储用户token
+                  const tokenStr = resp.data.tokenHead + resp.data.token
+                  window.sessionStorage.setItem('tokenStr', tokenStr)
+                  //跳转首页
+                  this.$router.replace('/home')
+                }
+              }
+          )
+        } else {
+          this.$message.error("请输入所有字段！")
+          return false;
         }
-      )
-      }
-    else
-      {
-        this.$message.error("请输入所有字段！")
-        return false;
-      }
+      })
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
-)
-;
-}
-}
+  }
 }
 </script>
 
-<style>
-.loginContainer {
-  border-radius: 15px;
-  background-clip: padding-box;
-  margin: 180px auto;
-  width: 350px;
-  padding: 15px 35px 15px 35px;
-  background: #fff;
-  border: 1px solid #eaeaea;
-  box-shadow: 0 0 25px #cac6c6;
-}
-
-.loginTitle {
-  margin: 0px auto 40px auto;
+<style scoped>
+.el-row {
+  background-color: #fafafa;
+  height: 100vh;
+  display: flex;
+  align-items: center;
   text-align: center;
 }
 
-.loginRemember {
-  text-align: left;
-  margin: 0px 0px 15px 0px;
+.el-divider {
+  height: 200px;
 }
 
-.el-form-item__content {
-  display: flex;
-  align-items: center;
+.captchaImg {
+  width: 100px;
+  height: 40px;
+  float: left;
+  margin-left: 8px;
+  border-radius: 4px;
 }
 </style>
